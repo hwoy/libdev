@@ -11,7 +11,8 @@ $(bin):	main.o CString.o Copt.o
 	$(CC) -o $(bin) main.o CString.o Copt.o 
 
 
-Copt.o: Copt.cpp CString.h Copt.h
-CString.o: CString.cpp CString.h
-main.o: main.cpp CString.h Copt.h
+Copt.o: Copt.cpp ../CString/CString.h Copt.h
+main.o: main.cpp ../CString/CString.h Copt.h
 
+CString.o: ../CString/CString.cpp ../CString/CString.h
+	$(CC)  $(CPPFLAGS)  -c -o CString.o ../CString/CString.cpp

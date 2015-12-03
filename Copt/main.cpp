@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CString.h"
+#include "../CString/CString.h"
 #include "Copt.h"
 
 const char *param[]={"-A:","-B:","-C",NULL};
