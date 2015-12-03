@@ -16,6 +16,6 @@ int main(void)
 	
 	scvt::ui2s<unsigned char>(str,-1);
 	cout << str << endl;
-	str="Hello World!";
+	(str="Hello World!")+=" Fuck you!";
 	cout << str << endl;
 }

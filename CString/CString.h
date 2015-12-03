@@ -51,7 +51,6 @@ template <class T>
 Cmem<T>::~Cmem()
 {
 	if(!ptr) delete ptr;
-	//std::cout << "Decon Cmem" << std::endl;
 }
 
 template <class T>

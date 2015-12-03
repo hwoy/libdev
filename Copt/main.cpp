@@ -28,9 +28,8 @@ int main(int argc,const char *argv[])
 		return 1;
 	}
 	
-	//opt.setstart(0);
-
-	
+	opt.getbuff().destroy();
+	opt.getbuff().balloc(4);
 	
 	while((i=opt.action())!=Copt::end)
 	{
@@ -48,7 +47,7 @@ int main(int argc,const char *argv[])
 			break;
 			
 			case Copt::oom:
-			cout << "Out of memory" << endl;
+			cout << "Out of memory! " << "BSIZE=" << opt.getbuff().getsize() << " bytes" << endl;
 			return 1;
 			
 		}
