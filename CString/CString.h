@@ -62,7 +62,8 @@ unsigned int Cmem<T>::getsize() const
 template <class T>
 T* Cmem<T>::balloc(unsigned int block)
 {
-	ptr=new T[size=(sizeof(T)*block)];
+	ptr=new T[block];
+	size=(sizeof(T)*block);
 	return ptr;
 }
 
