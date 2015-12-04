@@ -50,7 +50,7 @@ Cmem<T>::Cmem(unsigned int block)
 template <class T>
 Cmem<T>::~Cmem()
 {
-	if(!ptr) delete ptr;
+	if(!ptr) delete[] ptr;
 }
 
 template <class T>
@@ -69,7 +69,7 @@ T* Cmem<T>::balloc(unsigned int block)
 template <class T>
 void Cmem<T>::destroy()
 {
-	delete ptr;
+	delete[] ptr;
 	ptr=(byte *)0;
 	size=0;
 }
