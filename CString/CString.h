@@ -50,7 +50,7 @@ Cmem<T>::Cmem(unsigned int block)
 template <class T>
 Cmem<T>::~Cmem()
 {
-	if(!ptr) delete[] ptr;
+	if(ptr) delete[] ptr;
 }
 
 template <class T>
