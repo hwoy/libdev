@@ -108,7 +108,8 @@ CString& CString::operator+=(const char *str)
 CString& CString::operator+(const char *str)
 {
 	static CString cstr;
-	cstr.strcpy(ptr);
+	if(this!=&cstr)
+		cstr.strcpy(ptr);
 	cstr.strcat(str);
 	return cstr;
 }
