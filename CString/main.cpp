@@ -46,7 +46,7 @@ int main(void)
 	
 	cout << "== ui2s function base=10 ==" << endl;
 	str.destroy();
-	str.balloc(32);
+	str.balloc(33);
 	
 	scvt::ui2s<unsigned int>(str,-1);
 	cout << str << endl;
@@ -99,7 +99,7 @@ int main(void)
 	
 	cout << "== test str=NULL = destroy() ==" << endl;
 	str=NULL;
-	str.balloc(32);	
+	str.balloc(33);	
 	
 	ui2s (10001, str.get(), str.getsize(),10, 0);
 	cout << str << endl;
