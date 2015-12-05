@@ -97,7 +97,7 @@ class Clinklist
 	T* insert(T *obj,unsigned int index);
 	
 	T* split();
-	T* concat(T *obj);
+	void concat(T *obj);
 	
 	static const unsigned int invalid=-1;
 };
@@ -163,9 +163,24 @@ T *Clinklist<T>::getend() const
 template <class T>
 T* Clinklist<T>::add(T *obj)
 {
+	T *dir;
+	dir=obj;
+	
 	obj->setpos(static_cast<T *>(0));
 	obj->setneg(static_cast<T *>(0));
-	return concat(obj);
+	
+	if(!begin && !end)
+	{
+		begin=end=dir;
+	}
+	else
+	{
+		dir->setneg(end);
+		end->setpos(dir);
+		end=dir;
+	}
+	
+	return end;
 }
 
 template <class T>
@@ -300,7 +315,7 @@ T* Clinklist<T>::split()
 }
 	
 template <class T>	
-T* Clinklist<T>::concat(T *obj)
+void Clinklist<T>::concat(T *obj)
 {
 	T* dir;
 	dir=obj;
@@ -314,9 +329,7 @@ T* Clinklist<T>::concat(T *obj)
 		end->setpos(dir);
 	}
 	
-	end=getCdirect(countCdirect()-1);
-
-	return dir;
+	end=getCdirect(countCdirect()-1);		
 	
 }
 
