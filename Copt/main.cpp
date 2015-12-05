@@ -28,8 +28,7 @@ int main(int argc,const char *argv[])
 		return 1;
 	}
 	
-	opt.getbuff().destroy();
-	opt.getbuff().balloc(4);
+	opt.reballoc(4);
 	
 	while((i=opt.action())!=Copt::end)
 	{
@@ -39,15 +38,15 @@ int main(int argc,const char *argv[])
 			case p_2:
 			case p_3:
 
-			cout << "command:" << opt.getparam()[i] << "\tparam:" << opt.getbuff().get() << endl;
+			cout << "command:" << opt.getparam()[i] << "\tparam:" << opt.get() << endl;
 			break;
 			
 			case Copt::other:
-			cout << "Unknown:" << opt.getbuff().get() << endl;
+			cout << "Unknown:" << opt.get() << endl;
 			break;
 			
 			case Copt::oom:
-			cout << "Out of memory! " << "BSIZE=" << opt.getbuff().getsize() << " bytes" << endl;
+			cout << "Out of memory! " << "BSIZE=" << opt.getsize() << " bytes" << endl;
 			return 1;
 			
 		}

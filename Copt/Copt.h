@@ -1,9 +1,8 @@
 
-class Copt
+class Copt : public Cmem<char>
 {
 	private:
 	
-	Cmem<char> buff;
 	int argc;
 	unsigned int index;
 	unsigned int start;
@@ -20,7 +19,7 @@ class Copt
 	
 	Copt(int argc,const char **argv=NULL,const char **param=NULL,unsigned int bsize=BSIZE,unsigned start=START);
 	
-	void set(int argc,const char **argv=NULL,const char **param=NULL,unsigned int bsize=BSIZE,unsigned start=START);
+	void setup(int argc,const char **argv=NULL,const char **param=NULL,unsigned int bsize=BSIZE,unsigned start=START);
 	
 	void destroy();
 	
@@ -33,10 +32,6 @@ class Copt
 	int getargc() const;
 	void setargc(int argc);
 	
-	
-	Cmem<char>& getbuff();
-	
-
 	
 	const char **getargv() const;
 	void setargv(const char **argv);

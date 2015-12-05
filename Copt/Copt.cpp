@@ -5,22 +5,19 @@
 
 Copt::Copt(int argc,const char **argv,const char **param,unsigned int bsize,unsigned int start)
 {
-	set(argc,argv,param,bsize,start);
+	setup(argc,argv,param,bsize,start);
 }
 
-void Copt::set(int argc,const char **argv,const char **param,unsigned int bsize,unsigned int start)
+void Copt::setup(int argc,const char **argv,const char **param,unsigned int bsize,unsigned int start)
 {
-	if(buff.get())
-	buff.destroy();
-	
-	buff.balloc(bsize);
+	reballoc(bsize);
 	init(argc,argv,param,start);	
 }
 
 void Copt::destroy()
 {
-	if(buff.get())
-	buff.destroy();
+	if(ptr)
+	delete[] ptr;
 
 	this->argc=0;
 	this->argv=NULL;
@@ -60,10 +57,6 @@ void Copt::destroy()
 		this->argc=argc;
 	}
 	
-Cmem<char>& Copt::getbuff()
-{
-	return buff;
-}
 
 	const char **Copt::getargv() const
 	{
@@ -111,7 +104,7 @@ int Copt::action ()
 {
   unsigned int i, j, k, l;
 
-  buff.get()[0] = 0;
+  ptr[0] = 0;
 
 
   for (j = index; j < static_cast<unsigned int>(argc); j++)
@@ -124,11 +117,11 @@ int Copt::action ()
 	    {
 	      for (k = 0, l = CString::strlen (param[i]);argv[j][l]; k++, l++)
 		{
-			if((k+1) >= buff.getsize())  return oom;
+			if((k+1) >= getsize())  return oom;
 				
-		  buff.get()[k] = argv[j][l];
+		  ptr[k] = argv[j][l];
 		}
-	      buff.get()[k] = 0;
+	      ptr[k] = 0;
 	      index= j + 1;
 	      return i;
 	    }
@@ -136,10 +129,10 @@ int Copt::action ()
 
       for (k = 0, l = 0; argv[j][l]; k++, l++)
 	{
-		if((k+1) >= buff.getsize())  return oom;
-	  buff.get()[k] = argv[j][l];
+		if((k+1) >= getsize())  return oom;
+	  ptr[k] = argv[j][l];
 	}
-      buff.get()[k] = 0;
+      ptr[k] = 0;
       index= j + 1;
       return other;
 

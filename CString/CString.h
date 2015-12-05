@@ -29,6 +29,7 @@ class Cmem
 	int memcmp(const T *s2, unsigned int n) const;
 	
 	T* balloc(unsigned int block);
+	T* reballoc(unsigned int block);
 	void destroy();
 	
 	static void *memcpy(void *s1, const void *s2, unsigned int n);
@@ -65,6 +66,13 @@ T* Cmem<T>::balloc(unsigned int block)
 	ptr=new T[block];
 	size=(sizeof(T)*block);
 	return ptr;
+}
+
+template <class T>
+T* Cmem<T>::reballoc(unsigned int block)
+{
+	if(ptr) destroy();
+	return balloc(block);
 }
 
 template <class T>
