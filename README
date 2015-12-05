@@ -1,4 +1,4 @@
-libdev++ is a C++ libary contains
+libdev++ is a C++ libary.It contains
 
 Clinklist
 	Link list class
@@ -25,4 +25,24 @@ GITHUB:github.com/hwoy
 LOCATE:Thailand
 
 
+CLASS TREE
+
+Cmem<T> -----> CString:Cmem<char> -----> Copt
+
+
+Clinklist<T=Cdirect<T>> -----> Cgrap:Clinklist< Cdirect<CString> >
+            /
+		   /
+Cdirect<T>
+
+
+Cmsg -----> base_error
+
+
+base_help
+
+
+basic_random -----> Crandom
+             \
+			  \---> Cdevrandom
 
