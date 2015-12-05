@@ -38,3 +38,4 @@ for (dir=cgrap.getbegin();dir;dir=dir->getpos())
 	return 0;
 }
 
+

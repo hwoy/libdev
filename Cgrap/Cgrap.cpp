@@ -66,3 +66,4 @@ void Cgrap::action2(const char *str,char grap)
 	}
 	
 }
+

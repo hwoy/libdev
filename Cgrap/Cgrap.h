@@ -9,3 +9,4 @@ class Cgrap : public Clinklist< Cdirect<CString> >
 	void action(const char *str,const char *grap);
 	void action2(const char *str,char grap);
 };
+

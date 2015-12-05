@@ -17,3 +17,4 @@ main.o: main.cpp ../CString/CString.h ../Clinklist/Clinklist.h Cgrap.h
 
 CString.o: ../CString/CString.cpp ../CString/CString.h
 	$(CC)  $(CPPFLAGS)  -c -o CString.o ../CString/CString.cpp
+
