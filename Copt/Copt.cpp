@@ -110,9 +110,9 @@ int Copt::action ()
       for (i = 0; param[i]; i++)
 	{
 
-	  if (!(CString::strncmp (argv[j], param[i], CString::strlen (param[i]))))
+	  if (!strncmp (argv[j], param[i], strlen (param[i])))
 	    {
-		  strcpy(&argv[j][CString::strlen (param[i])]);
+		  strcpy(&argv[j][strlen (param[i])]);
 	      index= j + 1;
 	      return i;
 	    }

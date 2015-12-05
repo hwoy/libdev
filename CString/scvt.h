@@ -1,24 +1,24 @@
 
 namespace scvt
 {
-template <class T>
-T ui2s (CString& cstr,T num,T base=10, T len=0);
+template <class U,class T>
+T ui2s (U& cstr,T num,T base=10, T len=0);
 
-template <class T>
-int isUint (CString& cstr);
+template <class U>
+bool isUint (U& cstr);
 
 template <class T>
 T pow2ui (T base, T pow);
 
-template <class T>
-T s2ui (CString& cstr, T base=10);
+template <class U,class T>
+T s2ui (U& cstr, T base=10);
 
-template <class T>
-T isUintHex (CString& cstr);	
+template <class U>
+bool isUintHex (U& cstr);	
 }
 
-template <class T>
-T scvt::ui2s(CString& cstr,T num,T base, T len)
+template <class U,class T>
+T scvt::ui2s(U& cstr,T num,T base, T len)
 {
 
   T i, j, k, l;
@@ -63,20 +63,20 @@ T scvt::ui2s(CString& cstr,T num,T base, T len)
   return l;
 }
 
-template <class T>
-int isUint (CString& cstr)
+template <class U>
+bool scvt::isUint (U& cstr)
 {
   unsigned int i;
   if (!cstr.strlen())
-    return 0;
+    return false;
   for (i = 0; cstr.get()[i]; i++)
     {
       if (cstr.get()[i] < '0' || cstr.get()[i] > '9')
 	{
-	  return 0;
+	  return false;
 	}
     }
-  return 1;
+  return true;
 }
 
 template <class T>
@@ -94,8 +94,8 @@ T scvt::pow2ui (T base, T pow)
   return j;
 }
 
-template <class T>
-T scvt::s2ui (CString& cstr, T base)
+template <class U,class T>
+T scvt::s2ui (U& cstr, T base)
 {
 	T i, j, k, l;
   j = 0;
@@ -122,17 +122,17 @@ T scvt::s2ui (CString& cstr, T base)
   return j;
 }
 
-template <class T>
-T scvt::isUintHex (CString& cstr)
+template <class U>
+bool scvt::isUintHex (U& cstr)
 {
-  T i;
+  unsigned int i;
   if (cstr.strlen())
-    return 0;
+    return false;
   for (i = 0; cstr.get()[i]; i++)
     {
       if (!((cstr.get()[i] >= '0' && cstr.get()[i] <= '9') || (cstr.get()[i] >= 'A' && cstr.get()[i] <= 'F')))
-	return 0;
+	return false;
     }
-  return 1;
+  return true;
 }
 

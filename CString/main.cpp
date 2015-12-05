@@ -48,50 +48,50 @@ int main(void)
 	str.destroy();
 	str.balloc(33);
 	
-	scvt::ui2s<unsigned int>(str,-1);
+	scvt::ui2s<CString,unsigned int>(str,-1);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
-	scvt::ui2s<unsigned short>(str,-1);
+	scvt::ui2s<CString,unsigned short>(str,-1);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
-	scvt::ui2s<unsigned char>(str,-1);
+	scvt::ui2s<CString,unsigned char>(str,-1);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
 	cout << "== ui2s function base=16 ==" << endl;
-	scvt::ui2s<unsigned int>(str,-1,16);
+	scvt::ui2s<CString,unsigned int>(str,-1,16);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
-	scvt::ui2s<unsigned short>(str,-1,16);
+	scvt::ui2s<CString,unsigned short>(str,-1,16);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
-	scvt::ui2s<unsigned char>(str,-1,16);
+	scvt::ui2s<CString,unsigned char>(str,-1,16);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
 	cout << "== ui2s function base=2 ==" << endl;
 	
-	scvt::ui2s<unsigned int>(str,-1,2);
+	scvt::ui2s<CString,unsigned int>(str,-1,2);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
-	scvt::ui2s<unsigned short>(str,-1,2);
+	scvt::ui2s<CString,unsigned short>(str,-1,2);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
 	
-	scvt::ui2s<unsigned char>(str,-1,2);
+	scvt::ui2s<CString,unsigned char>(str,-1,2);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
