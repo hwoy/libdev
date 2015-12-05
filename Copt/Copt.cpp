@@ -3,14 +3,13 @@
 #include "Copt.h"
 
 
-Copt::Copt(int argc,const char **argv,const char **param,unsigned int bsize,unsigned int start)
+Copt::Copt(int argc,const char **argv,const char **param,unsigned int start)
 {
-	setup(argc,argv,param,bsize,start);
+	setup(argc,argv,param,start);
 }
 
-void Copt::setup(int argc,const char **argv,const char **param,unsigned int bsize,unsigned int start)
+void Copt::setup(int argc,const char **argv,const char **param,unsigned int start)
 {
-	reballoc(bsize);
 	init(argc,argv,param,start);	
 }
 
@@ -102,9 +101,7 @@ void Copt::init(unsigned int start)
 
 int Copt::action ()
 {
-  unsigned int i, j, k, l;
-
-  ptr[0] = 0;
+  unsigned int i, j;
 
 
   for (j = index; j < static_cast<unsigned int>(argc); j++)
@@ -115,30 +112,18 @@ int Copt::action ()
 
 	  if (!(CString::strncmp (argv[j], param[i], CString::strlen (param[i]))))
 	    {
-	      for (k = 0, l = CString::strlen (param[i]);argv[j][l]; k++, l++)
-		{
-			if((k+1) >= getsize())  return oom;
-				
-		  ptr[k] = argv[j][l];
-		}
-	      ptr[k] = 0;
+		  strcpy(&argv[j][CString::strlen (param[i])]);
 	      index= j + 1;
 	      return i;
 	    }
 	}
 
-      for (k = 0, l = 0; argv[j][l]; k++, l++)
-	{
-		if((k+1) >= getsize())  return oom;
-	  ptr[k] = argv[j][l];
-	}
-      ptr[k] = 0;
-      index= j + 1;
-      return other;
-
-
+	strcpy(&argv[j][0]);
+	index= j + 1;
+    return other;
 
     }
+	
   return end;
 }
 

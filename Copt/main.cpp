@@ -45,10 +45,6 @@ int main(int argc,const char *argv[])
 			cout << "Unknown:" << opt.get() << endl;
 			break;
 			
-			case Copt::oom:
-			cout << "Out of memory! " << "BSIZE=" << opt.getsize() << " bytes" << endl;
-			return 1;
-			
 		}
 	}
 	

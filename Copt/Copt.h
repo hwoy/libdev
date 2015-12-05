@@ -1,5 +1,5 @@
 
-class Copt : public Cmem<char>
+class Copt : public CString
 {
 	private:
 	
@@ -12,14 +12,12 @@ class Copt : public Cmem<char>
 	public:
 	static const int other=-1;
 	static const int end=-2;
-	static const int oom=-3;
 	
-	static const unsigned int BSIZE=256;
 	static const unsigned int START=1;
 	
-	Copt(int argc,const char **argv=NULL,const char **param=NULL,unsigned int bsize=BSIZE,unsigned start=START);
+	Copt(int argc,const char **argv=NULL,const char **param=NULL,unsigned start=START);
 	
-	void setup(int argc,const char **argv=NULL,const char **param=NULL,unsigned int bsize=BSIZE,unsigned start=START);
+	void setup(int argc,const char **argv=NULL,const char **param=NULL,unsigned start=START);
 	
 	void destroy();
 	
