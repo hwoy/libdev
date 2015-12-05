@@ -9,7 +9,7 @@ all: $(bin)
 $(bin): main.o Crandom.o
 		$(CC) -o $(bin) main.o Crandom.o
 clean:
-		rm *.o $(bin)
+		rm -f *.o $(bin)
 		
 
 Crandom.o: Crandom.cpp Crandom.h

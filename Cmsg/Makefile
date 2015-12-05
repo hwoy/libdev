@@ -9,7 +9,7 @@ all: $(bin)
 $(bin): main.o Cmsg.o
 		$(CC) -o $(bin) main.o Cmsg.o
 clean:
-		rm *.o $(bin)
+		rm -f *.o $(bin)
 		
 
 Cmsg.o: Cmsg.cpp Cmsg.h
