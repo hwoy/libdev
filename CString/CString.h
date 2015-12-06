@@ -185,6 +185,6 @@ class CString : public Cmem<byte>
 	static unsigned int strlen(const char *str);
 	static int strcmp(const char *str1,const char *str2);
 	static int strncmp(const char *str1,const char *str2,unsigned int n);
-	friend std::ostream& operator <<(std::ostream& out,CString& str);
 };
 
+std::ostream& operator <<(std::ostream& out,CString& str);
