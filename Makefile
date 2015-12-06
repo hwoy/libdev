@@ -2,7 +2,7 @@ CC=g++
 bin=grap.exe
 CPPFLAGS=-g -std=c++98 -pedantic -Wall -Werror -Wextra
 
-.PHONY: all clean
+.PHONY: all clean install
 
 all:
 	make -C Cgrap && \

@@ -1,7 +1,6 @@
 #include <iostream>
 #include "CString.h"
-#include "scvt.h"
-#include "function.h"
+#include "_scvt.h"
 
 using namespace std;
 int main(void)
@@ -95,13 +94,48 @@ int main(void)
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;
+	
+	str="123";
+	if(scvt::isUint<CString>(str))
+	{
+		cout << scvt::s2ui<CString,unsigned int>(str) << " is Unsigned int" << endl;
+	}
+	else
+	{
+		cout << scvt::s2ui<CString,unsigned int>(str) << " is not Unsigned int" << endl;
+	}
+	
+	str="123B";
+	if(scvt::isUintHex<CString>(str))
+	{
+		cout << scvt::s2ui<CString,unsigned int>(str,16) << " is Unsigned int Hex" << endl;
+	}
+	else
+	{
+		cout << scvt::s2ui<CString,unsigned int>(str,16) << " is not Unsigned int Hex" << endl;
+	}
+	
+	cout << endl;
+	
+	
+	str="00001111";
+	if(scvt::isUint<CString>(str))
+	{
+		cout << scvt::s2ui<CString,unsigned int>(str,2) << " is Unsigned int Hex" << endl;
+	}
+	else
+	{
+		cout << scvt::s2ui<CString,unsigned int>(str,2) << " is not Unsigned int Hex" << endl;
+	}
+	
+	cout << endl;
 
 	
 	cout << "== test str=NULL = destroy() ==" << endl;
 	str=NULL;
 	str.balloc(33);	
 	
-	ui2s (10001, str.get(), str.getsize(),10, 0);
+	ui2s <unsigned int>(10001, str.get(), str.getsize(),10, 0);
 	cout << str << endl;
 	cout << "STR size = " << str.strlen() << endl;
 	cout << "MEM size = " << str.getsize() << endl << endl;

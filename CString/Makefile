@@ -6,15 +6,14 @@ bin=str.exe
 
 all: $(bin)
 
-$(bin):	main.o CString.o function.o
-	$(CC) -o $(bin) main.o CString.o function.o
+$(bin):	main.o CString.o
+	$(CC) -o $(bin) main.o CString.o
 	
 clean:
 	rm -f *.o $(bin)
 
 CString.o: CString.cpp CString.h
 
-main.o: main.cpp CString.h scvt.h
+main.o: main.cpp CString.h _scvt.h
 
-function.o: function.c function.h
 
