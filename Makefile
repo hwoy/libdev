@@ -1,6 +1,3 @@
-CC=g++
-bin=grap.exe
-CPPFLAGS=-g -std=c++98 -pedantic -Wall -Werror -Wextra
 
 .PHONY: all clean install
 

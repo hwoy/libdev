@@ -1,7 +1,7 @@
 
 class Copt : public CString
 {
-	private:
+	protected:
 	
 	int argc;
 	unsigned int index;
