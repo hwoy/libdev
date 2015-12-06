@@ -18,7 +18,7 @@ class sam
 	
 };
 
-void showdata(Clinklist< Cdirect<int> >& list);
+static void showdata(Clinklist< Cdirect<int> >& list);
 
 int main(void)
 {
@@ -70,7 +70,7 @@ int main(void)
 	return 0;
 }
 
-void showdata(Clinklist< Cdirect<int> >& list)
+static void showdata(Clinklist< Cdirect<int> >& list)
 {
 	Cdirect<int> *dir;
 	for(dir=list.getbegin();dir;dir=dir->getpos())
