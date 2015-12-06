@@ -39,7 +39,7 @@ int main(int argc,const char *argv[])
 			if(scvt::isUint<Copt>(opt)) 
 				cout  << " is an Unsigned Number";
 			else if(scvt::isUintHex<Copt>(opt)) 
-				cout  << " is an Unsigned Number Hex";
+				cout  << " is an Unsigned Heximal Number";
 			
 			cout << endl;
 			break;
