@@ -6,21 +6,23 @@ using namespace std;
 class Cerror : public base_error
 {
 	public:
-	int showMsg(const char *str,unsigned int index)
+	int show(const char *str,unsigned int index)
 	{
 	cerr << "Error:" << index << ':' << str << ':' << getstr(index) << endl;
 	
-	return -index;
+	return -(index+1);
 	}
 };
 class Chelp : public base_help
 {
 	public:
-	int showHelp(unsigned int index)
+	int show(int ret=RET)
 {
-	cerr << getitem().getstr(index) << ':' << getitem_desc().getstr(index) << endl;
+	unsigned int i;
+	for(i=0;i<getitem().getNelement();i++)
+		cerr << getitem().getstr(i) << ':' << getitem_desc().getstr(i) << endl;
 	
-	return -index;
+	return ret;
 }
 };
 
@@ -42,10 +44,9 @@ int main(void)
 	help.setmsg(helpmsg,helpmsg_desc);
 
 	for(i=0;i<err.getNelement();i++)
-	err.showMsg("My Error",i);
+	err.show("My Error",i);
 
-	for(i=0;i<help.getitem().getNelement();i++)
-	help.showHelp(i);
+	help.show();
 	
 	return 0;
 }

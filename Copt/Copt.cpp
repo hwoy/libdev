@@ -120,11 +120,11 @@ int Copt::action ()
 
 	strcpy(&argv[j][0]);
 	index= j + 1;
-    return other;
+    return OTHER;
 
     }
 	
-  return end;
+  return END;
 }
 
 

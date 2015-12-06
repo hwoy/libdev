@@ -26,7 +26,7 @@ int main(int argc,const char *argv[])
 		return 1;
 	}
 	
-	while((i=opt.action())!=Copt::end)
+	while((i=opt.action())!=Copt::END)
 	{
 		switch(i)
 		{
@@ -44,7 +44,7 @@ int main(int argc,const char *argv[])
 			cout << endl;
 			break;
 			
-			case Copt::other:
+			case Copt::OTHER:
 			cout << "Unknown:" << opt.get() << endl;
 			break;
 			

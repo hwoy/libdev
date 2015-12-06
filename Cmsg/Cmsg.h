@@ -22,7 +22,7 @@ class Cmsg
 class base_error : public Cmsg
 {
 	public:
-	virtual int showMsg(const char *str,unsigned int index)=0; 
+	virtual int show(const char *str,unsigned int index)=0; 
 };
 
 
@@ -33,12 +33,15 @@ class base_help
 	Cmsg item_desc;
 	
 	public:
-	virtual int showHelp(unsigned int index)=0;
+	virtual int show(int ret)=0;
 	
 	Cmsg& getitem();
 	Cmsg& getitem_desc();
 	
 	void setmsg(const char **item,const char **item_desc);
+	
+	
+	static const int RET=1;
 	
 };
 

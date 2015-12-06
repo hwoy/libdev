@@ -10,8 +10,8 @@ class Copt : public CString
 	const char **param;
 	
 	public:
-	static const int other=-1;
-	static const int end=-2;
+	static const int OTHER=-1;
+	static const int END=-2;
 	static const unsigned int START=1;
 	
 	Copt(int argc,const char **argv=NULL,const char **param=NULL,unsigned start=START);
