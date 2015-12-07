@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../CString/CString.h"
-#include "../CString/_scvt.h"
-#include "Copt.h"
+#include <CString.h>
+#include <_scvt.h>
+#include <Copt.h>
 
 const char *param[]={"-A:","-B:","-C",NULL};
 enum

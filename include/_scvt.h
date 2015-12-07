@@ -1,3 +1,15 @@
+
+#ifndef __SCVT_H
+#define __SCVT_H
+#endif
+
+
+#ifndef _CEXCEPTION_H
+#include "Cexception.h"
+#endif
+
+
+
 template <class T>
 T sLen (const char *ch);
 
@@ -19,6 +31,9 @@ template <class T>
 T sLen (const char *ch)
 {
   unsigned int i;
+  
+  if(!ch)
+	  throw(Cexception(__FILE__,"",__PRETTY_FUNCTION__,"NULL pointers"));
 
   for (i = 0; ch[i]; i++);
   return i;
@@ -30,6 +45,11 @@ T ui2s(T num,char * str, T bsize,T base, T len)
 
   T i, j, k, l;
   char chb, che;
+  
+   if(!str)
+	  throw(Cexception(__FILE__,"",__PRETTY_FUNCTION__,"NULL pointers"));
+  
+  
   if (!base)
     {
       str[0] = 0;

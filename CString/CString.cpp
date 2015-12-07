@@ -1,10 +1,16 @@
 #include <iostream>
-#include "CString.h"
-
+#include <Cexception.h>
+#include <Cmem.h>
+#include <CString.h>
 
 unsigned int CString::strlen(const char *str)
 {
 	unsigned int i;
+	
+	if(!str)
+		throw(Cexception(__FILE__,"CString",__PRETTY_FUNCTION__,"NULL pointers"));
+	
+	
 	for(i=0;str[i];i++);
 	return i;
 }
@@ -19,6 +25,11 @@ unsigned int CString::strlen(const char *str)
 	{
 		unsigned int i;
 		int j;
+		
+		if(!str1 || !str2)
+		throw(Cexception(__FILE__,"CString",__PRETTY_FUNCTION__,"NULL pointers"));
+		
+	
 		for(i=0;str1[i] || str2[i];i++)
 		{
 			j=str1[i]-str2[i];
@@ -37,6 +48,10 @@ unsigned int CString::strlen(const char *str)
 	{
 		unsigned int i;
 		int j;
+		
+		if(!str1 || !str2)
+		throw(Cexception(__FILE__,"CString",__PRETTY_FUNCTION__,"NULL pointers"));
+		
 		for(i=0;i<n;i++)
 		{
 			j=str1[i]-str2[i];
@@ -77,6 +92,10 @@ byte* CString::strcat(const char *str)
 {
 	CString tmp;
 	unsigned int i,j;
+	
+		if(!str)
+		throw(Cexception(__FILE__,"CString",__PRETTY_FUNCTION__,"NULL pointers"));
+	
 	tmp.balloc(strlen()+strlen(str)+1);
 	
 	for(i=0;ptr[i];i++)

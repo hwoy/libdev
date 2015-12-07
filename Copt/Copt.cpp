@@ -1,6 +1,10 @@
 #include <iostream>
-#include "../CString/CString.h"
-#include "Copt.h"
+
+
+#include <Cexception.h>
+#include <CString.h>
+#include <Copt.h>
+
 
 
 Copt::Copt(int argc,const char **argv,const char **param,unsigned int start)
@@ -103,7 +107,9 @@ int Copt::action ()
 {
   unsigned int i, j;
 
-
+	if(!argv || !param)
+		throw(Cexception(__FILE__,"Copt",__PRETTY_FUNCTION__,"NULL pointers"));
+	
   for (j = index; j < static_cast<unsigned int>(argc); j++)
     {
 

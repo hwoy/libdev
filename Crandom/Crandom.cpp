@@ -1,15 +1,17 @@
-#include <fstream>
 #include <cstdlib>
-#include <ctime>
 
-#include "Crandom.h"
+#include <Cexception.h>
+#include <Crandom.h>
+
+
 
 basic_random::~basic_random()
 {
 }
 unsigned int basic_random::random(unsigned int min,unsigned int max)
 {
-	return (min<=max)?(rand()%(max-min+1))+min:-1;
+	if(min>max) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"min>max"));
+	return (rand()%(max-min+1))+min;
 }
 
 Crandom::Crandom(int seed)

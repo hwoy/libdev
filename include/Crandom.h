@@ -1,3 +1,10 @@
+#include <ctime>
+#include <fstream>
+
+#ifndef _CRANDOM_H
+#define _CRANDOM_H
+#endif
+
 #define _DEVNAME_ "/dev/urandom"
 
 class basic_random

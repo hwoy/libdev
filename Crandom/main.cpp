@@ -1,7 +1,7 @@
 #include <iostream>
-#include <fstream>
-#include <ctime>
+
 #include "Crandom.h"
+
 
 using namespace std;
 

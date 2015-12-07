@@ -1,6 +1,6 @@
 #include <iostream>
-#include "CString.h"
-#include "_scvt.h"
+#include <CString.h>
+#include <_scvt.h>
 
 using namespace std;
 int main(void)

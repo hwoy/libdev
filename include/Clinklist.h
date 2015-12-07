@@ -1,4 +1,11 @@
 
+#ifndef _CLINKLIST_H
+#define _CLINKLIST_H
+#endif
+
+#ifndef _CEXCEPTION_H
+#include "Cexception.h"
+#endif
 
 // **************  class Cdirect   ************** //
 template <class T>
@@ -163,6 +170,9 @@ T *Clinklist<T>::getend() const
 template <class T>
 T* Clinklist<T>::add(T *obj)
 {
+	if(!obj)
+		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));	
+	
 	obj->setpos(static_cast<T *>(0));
 	obj->setneg(static_cast<T *>(0));
 	return concat(obj);
@@ -211,8 +221,10 @@ T* Clinklist<T>::getCdirect(unsigned int index)
 template <class T>
 T* Clinklist<T>::split(T* obj)
 {
+	if(!obj)
+		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));
 	
-	if( (!obj) || ((begin==static_cast<T *>(0)) &&(end==static_cast<T *>(0))) )
+	if(((begin==static_cast<T *>(0)) &&(end==static_cast<T *>(0))) )
 		return static_cast<T *>(0);
 	
 	if(begin==end)
@@ -263,6 +275,8 @@ template <class T>
 T* Clinklist<T>::insert(T *obj,unsigned int index)
 {
 	T* dir;
+	if(!obj)
+		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));
 	
 	dir=getCdirect(index);
 	if(!dir) return static_cast<T *>(0);
@@ -303,6 +317,8 @@ template <class T>
 T* Clinklist<T>::concat(T *obj)
 {
 	T* dir;
+	if(!obj)
+		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));
 	dir=obj;
 	if(!begin && !end)
 	{

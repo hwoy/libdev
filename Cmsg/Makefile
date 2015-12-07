@@ -1,6 +1,6 @@
 CC=g++
 bin=msg.exe
-CPPFLAGS=-g -std=c++98 -pedantic -Wall -Werror -Wextra
+CPPFLAGS=-g -std=c++98 -pedantic -Wall -Werror -Wextra -I../include
 
 .PHONY: all clean
 
@@ -12,6 +12,6 @@ clean:
 		rm -f *.o $(bin)
 		
 
-Cmsg.o: Cmsg.cpp Cmsg.h
-main.o: main.cpp Cmsg.h
+Cmsg.o: Cmsg.cpp ../include/Cmsg.h
+main.o: main.cpp ../include/Cmsg.h
 

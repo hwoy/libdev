@@ -1,7 +1,12 @@
 #include <iostream>
-#include "../CString/CString.h"
-#include "../Clinklist/Clinklist.h"
-#include "Cgrap.h"
+
+#include <Cexception.h>
+
+#include <CString.h>
+
+#include <Clinklist.h>
+
+#include <Cgrap.h>
 
 
 
@@ -18,6 +23,9 @@ Cdirect<CString> * Cgrap::addstring(Cdirect<CString> *dir,const char *str,unsign
 void Cgrap::action(const char *str,const char *grap)
 {
 	unsigned int i,j;
+	
+	if(!str || !grap)
+		throw(Cexception(__FILE__,"Cgrap",__PRETTY_FUNCTION__,"NULL pointers"));
 	
 	for(j=0,i=0;str[i];)
 	{
@@ -50,6 +58,9 @@ unsigned int Cgrap::skipgrap(const char *str,char grap,unsigned int i)
 void Cgrap::action2(const char *str,char grap)
 {
 	unsigned int i,j;
+	
+	if(!str || !grap)
+		throw(Cexception(__FILE__,"Cgrap",__PRETTY_FUNCTION__,"NULL pointers"));
 	
 	for(j=0,i=0;str[i];)
 	{

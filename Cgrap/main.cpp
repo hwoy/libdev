@@ -1,7 +1,5 @@
 #include <iostream>
-#include "../CString/CString.h"
-#include "../Clinklist/Clinklist.h"
-#include "Cgrap.h"
+#include <Cgrap.h>
 
 using namespace std;
 

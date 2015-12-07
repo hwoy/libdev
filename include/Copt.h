@@ -1,3 +1,10 @@
+#ifndef _COPT_H
+#define _COPT_H
+#endif
+
+#ifndef _CSTRING_H
+#include "CString.h"
+#endif
 
 class Copt : public CString
 {

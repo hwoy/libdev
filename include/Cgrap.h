@@ -1,3 +1,14 @@
+#ifndef _CGRAP_H
+#define _CGRAP_H
+#endif
+
+#ifndef _CSTRING_H
+#include "CString.h"
+#endif
+
+#ifndef _CLINKLIST_H
+#include "Clinklist.h"
+#endif
 
 class Cgrap : public Clinklist< Cdirect<CString> >
 {

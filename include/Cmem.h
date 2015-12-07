@@ -1,3 +1,11 @@
+#ifndef _CMEM_H
+#define _CMEM_H
+#endif
+
+#ifndef _CEXCEPTION_H
+#include "Cexception.h"
+#endif
+
 
 typedef char byte;
 typedef unsigned char ubyte;
@@ -63,7 +71,15 @@ unsigned int Cmem<T>::getsize() const
 template <class T>
 T* Cmem<T>::balloc(unsigned int block)
 {
+	
+		try
+	{
 	ptr=new T[block];
+	}catch(std::exception &ex)
+	{
+		throw(Cexception(__FILE__,"Cmem",__PRETTY_FUNCTION__,ex.what()));
+	}
+	
 	size=(sizeof(T)*block);
 	return ptr;
 }
@@ -72,6 +88,7 @@ template <class T>
 T* Cmem<T>::reballoc(unsigned int block)
 {
 	if(ptr) destroy();
+
 	return balloc(block);
 }
 
@@ -79,7 +96,7 @@ template <class T>
 void Cmem<T>::destroy()
 {
 	delete[] ptr;
-	ptr=(byte *)0;
+	ptr=(T *)0;
 	size=0;
 }
 
@@ -113,6 +130,10 @@ template <class T>
 void *Cmem<T>::memcpy(void *s1, const void *s2, unsigned int n)
 {
 	unsigned int i;
+	
+	if(!s1 || !s2)
+		throw(Cexception(__FILE__,"Cmem",__PRETTY_FUNCTION__,"NULL pointers"));
+	
 	for(i=0;i<n;i++)
 		static_cast<ubyte *>(s1)[i]=static_cast<cubyte *>(s2)[i];
 	return s1;
@@ -122,6 +143,11 @@ template <class T>
 void *Cmem<T>::memset(void *s, int c, unsigned int n)
 {
 	unsigned int i;
+	
+	if(!s)
+		throw(Cexception(__FILE__,"Cmem",__PRETTY_FUNCTION__,"NULL pointers"));
+	
+	
 	for(i=0;i<n;i++)
 		(static_cast<ubyte *>(s))[i]=static_cast<ubyte>(c);
 	return s;
@@ -132,6 +158,10 @@ int Cmem<T>::memcmp(const void *s1, const void *s2, unsigned int n)
 {
 	unsigned int i;
 	int j;
+	
+	if(!s1 || !s2)
+		throw(Cexception(__FILE__,"Cmem",__PRETTY_FUNCTION__,"NULL pointers"));
+	
 	for(i=0;i<n;i++)
 	{
 		j=static_cast<int>(static_cast<byte>((static_cast<ubyte *>(s1))[i]-(static_cast<ubyte *>(s2))[i]));
@@ -155,36 +185,3 @@ T *Cmem<T>::memset(int c, unsigned int n)
 }
 
 /////////////////////////////////////////////////////////
-class CString : public Cmem<byte>
-{
-	public:
-	CString(const char *str=(byte *)0);
-	
-	
-	
-	byte* strcpy(const char *str);
-	byte* strcat(const char *str);
-	unsigned int strlen() const;
-	int strcmp(const char *str) const;
-	int strncmp(const char *str,unsigned int n) const;
-	
-	
-	CString& operator=(const char *str);
-	CString& operator+=(const char *str);
-	CString& operator+(const char *str);
-	bool operator==(const char *str) const;
-	bool operator!=(const char *str) const;
-	
-	CString& operator=(CString& cstr);
-	CString& operator+=(CString& cstr);
-	CString& operator+(CString& cstr);
-	bool operator==(CString& cstr) const;
-	bool operator!=(CString& cstr) const;
-	
-
-	static unsigned int strlen(const char *str);
-	static int strcmp(const char *str1,const char *str2);
-	static int strncmp(const char *str1,const char *str2,unsigned int n);
-};
-
-std::ostream& operator <<(std::ostream& out,CString& str);

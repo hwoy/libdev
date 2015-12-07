@@ -17,6 +17,9 @@ CString
 	
 Cgrap
 	String graping class
+	
+Cexception
+	Exception handler for libdev++
 
 	
 E-mail:bosskillerz@gmail.com
@@ -40,6 +43,11 @@ Cmsg -----> base_error
 
 
 base_help
+
+
+Cexception
+
+
 
 
 basic_random -----> Crandom
