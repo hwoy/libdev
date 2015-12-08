@@ -1,26 +1,24 @@
 #include <cstdlib>
+#include <fstream>
 
 #include <Cexception.h>
 #include <Crandom.h>
 
 
 
-basic_random::~basic_random()
-{
-}
-unsigned int basic_random::random(unsigned int min,unsigned int max)
-{
-	if(min>max) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"min>max"));
-	return (rand()%(max-min+1))+min;
-}
+
+
 
 Crandom::Crandom(int seed)
 {
 	srand(seed);
+
 }
 
-Crandom::~Crandom()
+unsigned int Crandom::random(unsigned int min,unsigned int max,rand_t rand_f)
 {
+	if(min>max) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"min>max"));
+	return (rand_f()%(max-min+1))+min;
 }
 
 void Crandom::srand(int seed)
@@ -39,21 +37,12 @@ unsigned int Crandom::rand()
 }
 
 
-Cdevrandom::Cdevrandom(const char *str)
-{
-	fname=str;
-}
-
-
-
-unsigned int Cdevrandom::rand()
+unsigned int Crandom::devrand()
 {
 	unsigned int i,j,k;
 	std::ifstream fin;
 	
-	if(!fname) throw(Cexception(__FILE__,"Cdevrandom",__PRETTY_FUNCTION__,"NULL pointers"));
-	
-	fin.open(fname);
+	fin.open(_DEVNAME_);
 	if(fin.fail())
 		return invalid;
 	
@@ -62,16 +51,6 @@ unsigned int Cdevrandom::rand()
 
 	fin.close();
 	return i;
-}
-
-void Cdevrandom::setfname(const char *str)
-{
-	fname=str;
-}
-
-const char *Cdevrandom::getfname() const
-{
-	return fname;
 }
 
 
