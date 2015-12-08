@@ -55,11 +55,13 @@ unsigned int Cdevrandom::rand()
 	
 	fin.open(fname);
 	if(fin.fail())
-		return -1;
+		return invalid;
+	
 	for(k=0,j=0;j<sizeof(i);j+=sizeof(char),k++)
 	fin.get(((char *)&i)[k]);
+
 	fin.close();
-	return invalid;
+	return i;
 }
 
 void Cdevrandom::setfname(const char *str)
