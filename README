@@ -48,8 +48,6 @@ base_help
 Cexception
 
 
-
-
 basic_random -----> Crandom
              \
 			  \---> Cdevrandom
