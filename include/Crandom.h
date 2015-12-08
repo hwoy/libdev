@@ -37,15 +37,18 @@ class Crandom : public basic_random
 class Cdevrandom : public basic_random
 {	
 	protected:
-	std::ifstream fin;
+	const char *fname;
 	
 	public:
 	Cdevrandom(const char *str=_DEVNAME_);
-	~Cdevrandom();
 	unsigned int rand();
-	std::ifstream& getfin(); 
-	std::ifstream& open(const char *str);
-	void close();
+	
+	void setfname(const char *str);
+	const char *getfname() const;
+	
+	
+	static const unsigned int invalid=-1;
+
 	
 };
 

@@ -41,39 +41,37 @@ unsigned int Crandom::rand()
 
 Cdevrandom::Cdevrandom(const char *str)
 {
-	fin.open(str);
+	fname=str;
 }
 
-Cdevrandom::~Cdevrandom()
-{
-	if(!fin.fail())
-	fin.close();
-}
+
 
 unsigned int Cdevrandom::rand()
 {
 	unsigned int i,j,k;
+	std::ifstream fin;
+	
+	if(!fname) throw(Cexception(__FILE__,"Cdevrandom",__PRETTY_FUNCTION__,"NULL pointers"));
+	
+	fin.open(fname);
 	if(fin.fail())
 		return -1;
 	for(k=0,j=0;j<sizeof(i);j+=sizeof(char),k++)
 	fin.get(((char *)&i)[k]);
-	
-	return i;
-}
-
-std::ifstream& Cdevrandom::getfin()
-{
-	return fin;
-}
-
-std::ifstream& Cdevrandom::open(const char *str)
-{
-	fin.open(str);
-	return fin;
-}
-
-void Cdevrandom::close()
-{
 	fin.close();
+	return invalid;
 }
+
+void Cdevrandom::setfname(const char *str)
+{
+	fname=str;
+}
+
+const char *Cdevrandom::getfname() const
+{
+	return fname;
+}
+
+
+
 
