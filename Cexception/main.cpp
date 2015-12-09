@@ -10,7 +10,7 @@ using namespace std;
 int main(void)
 {
 unsigned int i;
-Crandom rnd;
+Cstdrandom rnd;
 Cmem<void *> mem;
 CString str;
 
@@ -19,7 +19,7 @@ for(i=0;i<50;i++)
 {
 	try
 	{
-	cout << rnd.random(rnd.random(0,210),200)  << endl;
+	cout << Crandom::random(Crandom::random(0,210,rnd.rand()),200,rnd.rand())  << endl;
 	}catch(Cexception &exec)
 		{
 			cout << exec.what() << endl;

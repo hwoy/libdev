@@ -15,19 +15,53 @@ typedef unsigned int (*rand_t)(void);
 class Crandom
 {
 	protected:
+	rand_t randfptr;
+	
+	public:
+	Crandom(rand_t ptr=NULL):randfptr(ptr){}
+	
+	void set(rand_t ptr) {randfptr=ptr;}
+	rand_t get() {return randfptr;}
+	
+	unsigned int random(unsigned int min,unsigned int max);
+	
+	static unsigned int random(unsigned int min,unsigned int max,rand_t rand_f);
+	static unsigned int random(unsigned int min,unsigned int max,unsigned int value);
+};
+
+class Cstdrandom
+{
+	protected:
 	int seed;
 
 	
 	public:
-	Crandom(int seed=time(NULL));
+	Cstdrandom(int seed=time(NULL)) {set(seed);}
 
-	unsigned int random(unsigned int min,unsigned int max,rand_t rand_f=rand);
-	void srand(int seed);
-	int getseed(void) const;
+	void set(int seed);
+	int get(void) const {return seed;}
 	
-	static unsigned int rand();
-	static unsigned int devrand();
+	unsigned int rand();
+	
+};
+
+class Cdevrandom
+{
+	protected:
+	const char *fname;
+
+	
+	public:
+	Cdevrandom(const char *str=_DEVNAME_):fname(str){}
+
+	void set(const char *str) {fname=str;}
+	const char *get() const {return fname;}
+	
+	unsigned int rand();
+	
 	
 	static const unsigned int invalid=-1;
 };
+
+
 

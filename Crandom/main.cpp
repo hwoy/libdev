@@ -8,10 +8,10 @@ using namespace std;
 int main(void)
 {
 	unsigned int i;
-	Crandom rnd;
+	Cstdrandom value;
 	
 	for(i=0;i<10;i++)
-		cout << i <<':'<< rnd.random(1,10) << endl;
+		cout << i <<':'<< Crandom::random(1,10,value.rand()) << endl;
 	
 	return 0;
 }

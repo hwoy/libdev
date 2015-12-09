@@ -7,42 +7,42 @@
 
 
 
-
-
-Crandom::Crandom(int seed)
+unsigned int Crandom::random(unsigned int min,unsigned int max)
 {
-	srand(seed);
-
+	return random(min,max,randfptr);
 }
 
 unsigned int Crandom::random(unsigned int min,unsigned int max,rand_t rand_f)
 {
+	if(!rand_f) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"NULL pointers"));
+	return random(min,max,rand_f());
+}
+unsigned int Crandom::random(unsigned int min,unsigned int max,unsigned int value)
+{
 	if(min>max) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"min>max"));
-	return (rand_f()%(max-min+1))+min;
+	return (value%(max-min+1))+min;	
 }
 
-void Crandom::srand(int seed)
+
+void Cstdrandom::set(int seed) 
 {
-	this->seed=seed;
+	this->seed=seed; 
 	std::srand(seed);
 }
-int Crandom::getseed(void) const
-{
-	return seed;
-}
 
-unsigned int Crandom::rand()
+unsigned int Cstdrandom::rand()
 {
 	return std::rand();
 }
 
 
-unsigned int Crandom::devrand()
+unsigned int Cdevrandom::rand()
 {
 	unsigned int i,j,k;
 	std::ifstream fin;
+	if(!fname) throw(Cexception(__FILE__,"Cdevrandom",__PRETTY_FUNCTION__,"NULL pointers"));
 	
-	fin.open(_DEVNAME_);
+	fin.open(fname);
 	if(fin.fail())
 		return invalid;
 	
