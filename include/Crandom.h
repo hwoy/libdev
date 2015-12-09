@@ -12,40 +12,34 @@ typedef unsigned int (*rand_t)(void);
 
 
 
-class Crandom
+class basic_random
 {
-	protected:
-	rand_t randfptr;
 	
 	public:
-	Crandom(rand_t ptr=NULL):randfptr(ptr){}
 	
-	void set(rand_t ptr) {randfptr=ptr;}
-	rand_t get() {return randfptr;}
-	
+	virtual unsigned int rand()=0;
 	unsigned int random(unsigned int min,unsigned int max);
 	
 	static unsigned int random(unsigned int min,unsigned int max,rand_t rand_f);
 	static unsigned int random(unsigned int min,unsigned int max,unsigned int value);
 };
 
-class Cstdrandom
+class Crandom: public basic_random
 {
 	protected:
 	int seed;
 
 	
 	public:
-	Cstdrandom(int seed=time(NULL)) {set(seed);}
+	Crandom(int seed=time(NULL)) {set(seed);}
 
 	void set(int seed);
 	int get(void) const {return seed;}
 	
 	unsigned int rand();
-	
 };
 
-class Cdevrandom
+class Cdevrandom: public basic_random
 {
 	protected:
 	const char *fname;
@@ -59,7 +53,7 @@ class Cdevrandom
 	
 	unsigned int rand();
 	
-	
+	static unsigned int rand(const char *fname);
 	static const unsigned int invalid=-1;
 };
 

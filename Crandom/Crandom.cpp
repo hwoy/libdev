@@ -7,36 +7,41 @@
 
 
 
-unsigned int Crandom::random(unsigned int min,unsigned int max)
+unsigned int basic_random::random(unsigned int min,unsigned int max)
 {
-	return random(min,max,randfptr);
+	return random(min,max,rand());
 }
 
-unsigned int Crandom::random(unsigned int min,unsigned int max,rand_t rand_f)
+unsigned int basic_random::random(unsigned int min,unsigned int max,rand_t rand_f)
 {
-	if(!rand_f) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"NULL pointers"));
+	if(!rand_f) throw(Cexception(__FILE__,"basic_random",__PRETTY_FUNCTION__,"NULL pointers"));
 	return random(min,max,rand_f());
 }
-unsigned int Crandom::random(unsigned int min,unsigned int max,unsigned int value)
+unsigned int basic_random::random(unsigned int min,unsigned int max,unsigned int value)
 {
-	if(min>max) throw(Cexception(__FILE__,"Crandom",__PRETTY_FUNCTION__,"min>max"));
+	if(min>max) throw(Cexception(__FILE__,"basic_random",__PRETTY_FUNCTION__,"min>max"));
 	return (value%(max-min+1))+min;	
 }
 
 
-void Cstdrandom::set(int seed) 
+void Crandom::set(int seed) 
 {
 	this->seed=seed; 
 	std::srand(seed);
 }
 
-unsigned int Cstdrandom::rand()
+unsigned int Crandom::rand()
 {
 	return std::rand();
 }
 
 
 unsigned int Cdevrandom::rand()
+{
+	return rand(fname);
+}
+
+unsigned int Cdevrandom::rand(const char *fname)
 {
 	unsigned int i,j,k;
 	std::ifstream fin;
@@ -52,6 +57,7 @@ unsigned int Cdevrandom::rand()
 	fin.close();
 	return i;
 }
+
 
 
 
