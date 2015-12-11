@@ -50,7 +50,7 @@ bool Prime<T>::isPrime(T num)
 	if(!num) return false;
 	else if(num<=2) return true;
 	
-	for(i=2;i<num;i++)
+	for(i=2;(i*i)<=num;i++)
 	{
 		if(!(num%i)) return false;
 	}
@@ -140,7 +140,6 @@ int main(int argc,const char *argv[])
 	prime_t j;
 	prime_t begin,end;
 	
-	Prime<prime_t> pm;
 	Cerror err;
 	Chelp help;
 	
@@ -197,10 +196,9 @@ int main(int argc,const char *argv[])
 	
 	for(count=0,j=begin;j<=end;j++)
 	{
-		pm.set(j);
-		if(pm.isPrime())
+		if(Prime<prime_t>::isPrime(j))
 		{
-			cout << pm.get() << endl;
+			cout << j << endl;
 			count++;
 		}
 	}
