@@ -23,6 +23,7 @@ class Cdirect
 	
 };
 
+// **************  class Ccontainer   ************** //
 template <class T>
 class Ccontainer
 {
@@ -41,6 +42,7 @@ class Ccontainer
 	
 };
 
+// **************  class basic_data   ************** //
 template <class T>
 class basic_data 
 {
@@ -140,7 +142,7 @@ unsigned int basic_data<T>::countCcontainer()
 	
 	return i;
 }
-// **************  class Cstack   ************** /
+// **************  class Cstack   ************** //
 template <class T>
 class Cstack : public basic_data<T>
 {
