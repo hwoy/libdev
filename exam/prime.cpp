@@ -160,7 +160,7 @@ int main(int argc,const char *argv[])
 	
 	for(count=0,j=begin;j<=end;j++)
 	{
-		if(isPrime(j))
+		if(isPrime<prime_t>(j))
 		{
 			cout << j << endl;
 			count++;
