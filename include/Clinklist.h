@@ -8,134 +8,213 @@
 #endif
 
 // **************  class Cdirect   ************** //
+
 template <class T>
 class Cdirect
 {
 	protected:
-	Cdirect<T> *pos;
-	Cdirect<T> *neg;
-	T obj;
+	T *point;
 	
 	public:
-	Cdirect();
+	Cdirect():point(static_cast<T *>(0)){}
 	
-	Cdirect<T> *getpos();
-	Cdirect<T> *getneg();
+	void set(T *point){this->point=point;}
+	T* get(){return point;}
 	
-	
-	void setpos(Cdirect<T> *pos);
-	void setneg(Cdirect<T> *neg);	
-	
-	T& getobj();
 };
 
 template <class T>
-Cdirect<T>::Cdirect()
+class Ccontainer
 {
-	pos=static_cast<Cdirect<T> *>(0);
-	neg=static_cast<Cdirect<T> *>(0);
-}
-
+	protected:
+	unsigned int ndirect;
+	T obj;
+	Cdirect<Ccontainer<T> > *direct;
+	
+	public:
+	Ccontainer(unsigned int ndirect=2):ndirect(ndirect){direct=new Cdirect<Ccontainer<T> >[ndirect];}
+	~Ccontainer(){delete[] direct;}
+	
+	T& getobj() {return obj;}
+	Cdirect<Ccontainer<T> >* getdir(unsigned int index){return (index+1<=ndirect)?&direct[index]:static_cast<Cdirect<Ccontainer<T> > *>(0);}
+	unsigned int getndirect() {return ndirect;}
+	
+};
 
 template <class T>
-Cdirect<T> *Cdirect<T>::getpos()
-{
-	return pos;
-}
-
-template <class T>
-Cdirect<T> *Cdirect<T>::getneg()
-{
-	return neg;
-}
-
-template <class T>
-void Cdirect<T>::setpos(Cdirect<T> *pos)
-{
-	this->pos=pos;
-}
-
-template <class T>
-void Cdirect<T>::setneg(Cdirect<T> *neg)
-{
-	this->neg=neg;
-}
-
-
-template <class T>
-T& Cdirect<T>::getobj()
-{
-	return obj;
-}
-
-
-// **************  class Clinklist   ************** //
-
-template <class T>
-class Clinklist
+class basic_data 
 {
 	protected:
 	T *begin;
 	T *end;
 	
-	T* split(T* obj);	
-	
 	public:
-	Clinklist();
-	~Clinklist();
-	
+	basic_data();
+	~basic_data();
 	void destroy();
-	void remove(unsigned int index);
-	void remove(T* obj);
 	
 	T *getbegin() const;
 	T *getend() const;
 	
-	unsigned int countCdirect();
-	unsigned int getCdirectindex(T* obj);
-	T* getCdirect(unsigned int index);
-	
-	T* add(T *obj);
-	T* split(unsigned int index);
-	
-	T* push(T *obj);
-	T* pop();
-	
-	T* insert(T *obj,unsigned int index);
-	
-	T* split();
-	T* concat(T *obj);
+	unsigned int countCcontainer();
+	unsigned int getCcontainerindex(T* obj);
+	T* getCcontainer(unsigned int index);
 	
 	static const unsigned int invalid=-1;
+	static const unsigned int prev=0;
+	static const unsigned int next=1;
+	
 };
 
 template <class T>
-Clinklist<T>::Clinklist()
+basic_data<T>::basic_data()
 {
 	begin=static_cast<T *>(0);
 	end=static_cast<T *>(0);
 }
 
 template <class T>
-Clinklist<T>::~Clinklist()
+basic_data<T>::~basic_data()
 {
 	destroy();
 }
 
 template <class T>
-void Clinklist<T>::destroy()
+void basic_data<T>::destroy()
 {
 T *dir,*tmp;
 	for(dir=begin;dir;)
 	{
 		tmp=dir;
-		dir=dir->getpos();
+		dir=dir->getdir(next)->get();
 		delete tmp;
 	}
 	
 	begin=static_cast<T *>(0);
 	end=static_cast<T *>(0);
 }
+
+template <class T>
+T *basic_data<T>::getbegin() const
+{
+	return begin;
+}
+
+template <class T>
+T *basic_data<T>::getend() const
+{
+	return end;
+}
+
+
+template <class T>
+unsigned int basic_data<T>::getCcontainerindex(T* obj)
+{
+	unsigned int i;
+	T *dir;
+	for(i=0,dir=begin;dir;i++,dir=dir->getdir(next)->get())
+	{
+		if(dir==obj) return i;
+	}
+	
+	return invalid;
+	
+}
+
+template <class T>
+T* basic_data<T>::getCcontainer(unsigned int index)
+{
+	unsigned int i;
+	T *dir;
+	for(i=0,dir=begin; dir && i<index ;i++,dir=dir->getdir(next)->get());
+	
+	return dir;
+}
+
+template <class T>
+unsigned int basic_data<T>::countCcontainer()
+{
+	unsigned int i;
+	T *dir;
+	for(i=0,dir=begin;dir;i++,dir=dir->getdir(next)->get());
+	
+	return i;
+}
+// **************  class Cstack   ************** /
+template <class T>
+class Cstack : public basic_data<T>
+{
+	public:
+	T* push(T *obj);
+	T* pop();
+};
+
+template <class T>
+T* Cstack<T>::push(T *obj)
+{
+	if(!obj)
+		throw(Cexception(__FILE__,"Cstack",__PRETTY_FUNCTION__,"NULL pointers"));	
+	
+	obj->getdir(basic_data<T>::next)->set(static_cast<T *>(0));
+	obj->getdir(basic_data<T>::prev)->set(static_cast<T *>(0));
+	
+	
+	if(!basic_data<T>::begin && !basic_data<T>::end)
+	{
+		basic_data<T>::begin=obj;
+	}
+	else
+	{
+		obj->getdir(basic_data<T>::prev)->set(basic_data<T>::end);
+		basic_data<T>::end->getdir(basic_data<T>::next)->set(obj);
+	}
+	
+	basic_data<T>::end=obj;
+
+	return basic_data<T>::end;
+}
+
+
+template <class T>
+T* Cstack<T>::pop()
+{
+	T *dir;
+	dir=static_cast<T *>(0);
+	if(basic_data<T>::begin && basic_data<T>::end)
+	{
+		dir=basic_data<T>::end;
+		basic_data<T>::end=basic_data<T>::end->getdir(Cstack<T>::prev)->get();
+		basic_data<T>::end->getdir(Cstack<T>::next)->set(static_cast<T *>(0));
+		dir->getdir(Cstack<T>::prev)->set(static_cast<T *>(0));
+	}
+	
+	return dir;
+}
+
+// **************  class Clinklist   ************** /
+
+template <class T>
+class Clinklist :public Cstack <T>
+{
+	protected:
+	
+	T* split(T* obj);	
+	
+	public:
+
+	void remove(unsigned int index);
+	void remove(T* obj);
+	
+	T* add(T *obj);
+	T* split(unsigned int index);
+	
+	T* insert(T *obj,unsigned int index);
+	
+	T* split();
+	T* concat(T *obj);
+	
+};
+
 
 template <class T>
 void Clinklist<T>::remove(unsigned int index)
@@ -150,73 +229,18 @@ void Clinklist<T>::remove(T* obj)
 {
 	unsigned int index;
 
-	index=getCdirectindex(obj);
-	if(index!=invalid)
+	index=getCcontainerindex(obj);
+	if(index!=Cstack<T>::invalid)
 		remove(index);
 }
 
-template <class T>
-T *Clinklist<T>::getbegin() const
-{
-	return begin;
-}
-
-template <class T>
-T *Clinklist<T>::getend() const
-{
-	return end;
-}
 
 template <class T>
 T* Clinklist<T>::add(T *obj)
 {
-	if(!obj)
-		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));	
-	
-	obj->setpos(static_cast<T *>(0));
-	obj->setneg(static_cast<T *>(0));
-	return concat(obj);
+	return Cstack<T>::push(obj);
 }
 
-template <class T>
-T* Clinklist<T>::push(T *obj)
-{
-	return add(obj);
-}
-
-template <class T>
-T* Clinklist<T>::pop()
-{
-	unsigned int i;
-	
-	if((i=countCdirect())) return split(i-1);
-	
-	return static_cast<T *>(0);
-}
-
-template <class T>
-unsigned int Clinklist<T>::getCdirectindex(T* obj)
-{
-	unsigned int i;
-	T *dir;
-	for(i=0,dir=begin;dir;i++,dir=dir->getpos())
-	{
-		if(dir==obj) return i;
-	}
-	
-	return invalid;
-	
-}
-
-template <class T>
-T* Clinklist<T>::getCdirect(unsigned int index)
-{
-	unsigned int i;
-	T *dir;
-	for(i=0,dir=begin; dir && i<index ;i++,dir=dir->getpos());
-	
-	return dir;
-}
 
 template <class T>
 T* Clinklist<T>::split(T* obj)
@@ -224,30 +248,30 @@ T* Clinklist<T>::split(T* obj)
 	if(!obj)
 		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));
 	
-	if(((begin==static_cast<T *>(0)) &&(end==static_cast<T *>(0))) )
+	if(((Cstack<T>::begin==static_cast<T *>(0)) &&(Cstack<T>::end==static_cast<T *>(0))) )
 		return static_cast<T *>(0);
 	
-	if(begin==end)
+	if(Cstack<T>::begin==Cstack<T>::end)
 	{
-		begin=end=static_cast<T *>(0);
+		Cstack<T>::begin=Cstack<T>::end=static_cast<T *>(0);
 	}
 	
-	else if(begin==obj)
+	else if(Cstack<T>::begin==obj)
 	{
-		begin=obj->getpos();
-		obj->getpos()->setneg(  obj->getneg()  );
+		Cstack<T>::begin=obj->getdir(Cstack<T>::next)->get();
+		obj->getdir(Cstack<T>::next)->get()->getdir(Cstack<T>::prev)->set(  obj->getdir(Cstack<T>::prev)->get()  );
 	}
 	
-	else if(end==obj)
+	else if(Cstack<T>::end==obj)
 	{
-		end=obj->getneg();
-		obj->getneg()->setpos(  obj->getpos()  );
+		Cstack<T>::end=obj->getdir(Cstack<T>::prev)->get();
+		obj->getdir(Cstack<T>::prev)->get()->getdir(Cstack<T>::next)->set(  obj->getdir(Cstack<T>::next)->get()  );
 	}
 	
 	else
 	{
-		obj->getneg()->setpos(  obj->getpos()  );
-		obj->getpos()->setneg(  obj->getneg()  );
+		obj->getdir(Cstack<T>::prev)->get()->getdir(Cstack<T>::next)->set(  obj->getdir(Cstack<T>::next)->get()  );
+		obj->getdir(Cstack<T>::next)->get()->getdir(Cstack<T>::prev)->set(  obj->getdir(Cstack<T>::prev)->get() );
 	}
 	
 	return obj;
@@ -258,18 +282,9 @@ T* Clinklist<T>::split(T* obj)
 template <class T>
 T* Clinklist<T>::split(unsigned int index)
 {
-	return split(getCdirect(index));
+	return split(Cstack<T>::getCcontainer(index));
 }
 
-template <class T>
-unsigned int Clinklist<T>::countCdirect()
-{
-	unsigned int i;
-	T *dir;
-	for(i=0,dir=begin;dir;i++,dir=dir->getpos());
-	
-	return i;
-}
 
 template <class T>
 T* Clinklist<T>::insert(T *obj,unsigned int index)
@@ -278,25 +293,25 @@ T* Clinklist<T>::insert(T *obj,unsigned int index)
 	if(!obj)
 		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));
 	
-	dir=getCdirect(index);
+	dir=Cstack<T>::getCcontainer(index);
 	if(!dir) return static_cast<T *>(0);
 	
-	if(begin==end)
+	if(Cstack<T>::begin==Cstack<T>::end)
 	{
 		add(obj);
 	}
-	else if(dir==begin)
+	else if(dir==Cstack<T>::begin)
 	{
-		dir->setneg(obj);
-		obj->setpos(begin);
-		begin=obj;
+		dir->getdir(Cstack<T>::prev)->set(obj);
+		obj->getdir(Cstack<T>::next)->set(Cstack<T>::begin);
+		Cstack<T>::begin=obj;
 	}
 	else
 	{
-		obj->setneg(dir->getneg());
-		obj->setpos(dir);
-		dir->getneg()->setpos(obj);
-		dir->setneg(obj);
+		obj->getdir(Cstack<T>::prev)->set(dir->getdir(Cstack<T>::prev)->get());
+		obj->getdir(Cstack<T>::next)->set(dir);
+		dir->getdir(Cstack<T>::prev)->get()->getdir(Cstack<T>::next)->set(obj);
+		dir->getdir(Cstack<T>::prev)->set(obj);
 		
 	}
 	
@@ -306,9 +321,9 @@ template <class T>
 T* Clinklist<T>::split()
 {
 	T* dir;
-	dir=begin;
+	dir=Cstack<T>::begin;
 	
-	begin=end=static_cast<T *>(0);
+	Cstack<T>::begin=Cstack<T>::end=static_cast<T *>(0);
 	
 	return dir;
 }
@@ -320,17 +335,17 @@ T* Clinklist<T>::concat(T *obj)
 	if(!obj)
 		throw(Cexception(__FILE__,"Clinklist",__PRETTY_FUNCTION__,"NULL pointers"));
 	dir=obj;
-	if(!begin && !end)
+	if(!Cstack<T>::begin && !Cstack<T>::end)
 	{
-		begin=dir;
+		Cstack<T>::begin=dir;
 	}
 	else
 	{
-		dir->setneg(end);
-		end->setpos(dir);
+		dir->getdir(Cstack<T>::prev)->set(Cstack<T>::end);
+		Cstack<T>::end->getdir(Cstack<T>::next)->set(dir);
 	}
 	
-	end=getCdirect(countCdirect()-1);
+	Cstack<T>::end=Cstack<T>::getCcontainer(Cstack<T>::countCcontainer()-1);
 
 	return dir;
 	

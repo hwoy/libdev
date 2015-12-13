@@ -11,16 +11,16 @@ static const char grap2=0x20;
 
 int main(void)
 {
-Cdirect<CString> *dir;
+Ccontainer<CString> *con;
 Cgrap cgrap;
 
 cgrap.action(str,grap);
 
 cout << str << endl << endl;
 
-for (dir=cgrap.getbegin();dir;dir=dir->getpos())
+for (con=cgrap.getbegin();con;con=con->getdir(basic_data<Ccontainer<CString> >::next)->get())
 {
-	cout << dir->getobj() << endl;
+	cout << con->getobj() << endl;
 }
 
 cgrap.destroy();
@@ -28,9 +28,9 @@ cgrap.action2(str2,grap2);
 
 cout << str2 << endl << endl;
 
-for (dir=cgrap.getbegin();dir;dir=dir->getpos())
+for (con=cgrap.getbegin();con;con=con->getdir(basic_data<Ccontainer<CString> >::next)->get())
 {
-	cout << dir->getobj() << endl;
+	cout << con->getobj() << endl;
 }
 
 	return 0;

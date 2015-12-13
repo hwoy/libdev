@@ -4,46 +4,10 @@
 #include <Cmsg.h>
 #include <Copt.h>
 
-template <class T>
-class Prime
-{
-protected:
-T num;
 
-public:
-Prime(T num=0);
-void set(T num);
-T get() const;
-bool isPrime();
-static bool isPrime(T num);
-};
 
 template <class T>
-Prime<T>::Prime(T num)
-{
-	this->num=num;
-}
-
-template <class T>
-void Prime<T>::set(T num)
-{
-	this->num=num;
-}
-
-template <class T>
-T Prime<T>::get() const
-{
-	return num;
-}
-
-template <class T>
-bool Prime<T>::isPrime()
-{
-	return isPrime(num);
-}
-
-template <class T>
-bool Prime<T>::isPrime(T num)
+bool isPrime(T num)
 {
 	T i;
 	
@@ -196,7 +160,7 @@ int main(int argc,const char *argv[])
 	
 	for(count=0,j=begin;j<=end;j++)
 	{
-		if(Prime<prime_t>::isPrime(j))
+		if(isPrime(j))
 		{
 			cout << j << endl;
 			count++;
@@ -207,3 +171,4 @@ int main(int argc,const char *argv[])
 	
 	return 0;
 }
+

@@ -1,39 +1,24 @@
 #include <iostream>
+
 #include <Clinklist.h>
 using namespace std;
 
-
-class sam
-{
-	private:
-	int i;
-	
-	public:
-	
-	sam(int i=0){this->i=i;}
-	
-	void set(int i){this->i=i;}
-	
-	int get() const {return i;}
-	
-};
-
-static void showdata(Clinklist< Cdirect<int> >& list);
+static void showdata(Clinklist< Ccontainer<int> >& list);
 
 int main(void)
 {
 	int i;
 	
-	Clinklist< Cdirect<int> > list;
-	Clinklist< Cdirect<int> > listp;
+	Clinklist< Ccontainer<int> > list;
+	Clinklist< Ccontainer<int> > listp;
 
 	cout << "<<<< Start >>>>" << endl;
 	
 	for(i=1;i<=5;i++)
-		list.push(new Cdirect<int>)->getobj()=i;
+		list.push(new Ccontainer<int>)->getobj()=i;
 	
 	for(i=1;i<=5;i++)
-		list.insert(new Cdirect<int>,0)->getobj()=-i;
+		list.insert(new Ccontainer<int>,0)->getobj()=-i;
 	
 	showdata(list);
 
@@ -44,8 +29,8 @@ int main(void)
 	showdata(list);
 	
 	cout << "<<<< Insert >>>>" << endl;
-	list.insert(new Cdirect<int>,4)->getobj()=1;
-	list.insert(new Cdirect<int>,4)->getobj()=-1;
+	list.insert(new Ccontainer<int>,4)->getobj()=1;
+	list.insert(new Ccontainer<int>,4)->getobj()=-1;
 	
 	showdata(list);
 	
@@ -70,17 +55,17 @@ int main(void)
 	return 0;
 }
 
-static void showdata(Clinklist< Cdirect<int> >& list)
+static void showdata(Clinklist< Ccontainer<int> >& list)
 {
-	Cdirect<int> *dir;
-	for(dir=list.getbegin();dir;dir=dir->getpos())
+	Ccontainer<int> *dir;
+	for(dir=list.getbegin();dir;dir=dir->getdir(Clinklist< Ccontainer<int> >::next)->get())
 	{
 		cout << dir->getobj() << endl;
 	}
 	
 	cout << "... Reverse ..." << endl;
 	
-	for(dir=list.getend();dir;dir=dir->getneg())
+	for(dir=list.getend();dir;dir=dir->getdir(Clinklist< Ccontainer<int> >::prev)->get())
 	{
 		cout << dir->getobj() << endl;
 	}		

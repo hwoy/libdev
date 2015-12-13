@@ -14,3 +14,4 @@ $(bin):	prime.o
 	$(CC) -o $(bin) prime.o ../lib/CString.o ../lib/Copt.o  ../lib/Cexception.o ../lib/Cmsg.o
 
 prime.o: prime.cpp
+

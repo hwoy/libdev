@@ -11,7 +11,7 @@
 
 
 
-Cdirect<CString> * Cgrap::addstring(Cdirect<CString> *dir,const char *str,unsigned int i,unsigned int j)
+Ccontainer<CString> * Cgrap::addstring(Ccontainer<CString> *dir,const char *str,unsigned int i,unsigned int j)
 {
 	dir->getobj().balloc(i-j+1);
 	dir->getobj().memcpy(&str[j],i-j);
@@ -31,7 +31,7 @@ void Cgrap::action(const char *str,const char *grap)
 	{
 		if( !CString::strncmp(&str[i],grap,CString::strlen(grap)) )
 		{
-			addstring(new Cdirect<CString>,str,i,j);
+			addstring(new Ccontainer<CString>,str,i,j);
 			
 			i+=CString::strlen(grap);
 			j=i;
@@ -43,7 +43,7 @@ void Cgrap::action(const char *str,const char *grap)
 	
 	if(i>j)
 	{	
-		addstring(new Cdirect<CString>,str,i,j);
+		addstring(new Ccontainer<CString>,str,i,j);
 	}
 }
 
@@ -66,7 +66,7 @@ void Cgrap::action2(const char *str,char grap)
 	{
 		if( str[i]==grap )
 		{
-			addstring(new Cdirect<CString>,str,i,j);
+			addstring(new Ccontainer<CString>,str,i,j);
 			
 			i=skipgrap(str,grap,i);
 			j=i;

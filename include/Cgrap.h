@@ -10,10 +10,10 @@
 #include "Clinklist.h"
 #endif
 
-class Cgrap : public Clinklist< Cdirect<CString> >
+class Cgrap : public Clinklist< Ccontainer<CString> >
 {
 	protected:
-	Cdirect<CString> * addstring(Cdirect<CString> *dir,const char *str,unsigned int i,unsigned int j);
+	Ccontainer<CString> * addstring(Ccontainer<CString> *dir,const char *str,unsigned int i,unsigned int j);
 	unsigned int skipgrap(const char *str,char grap,unsigned int i);
 	
 	public:
