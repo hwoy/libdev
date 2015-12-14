@@ -18,7 +18,7 @@ cgrap.action(str,grap);
 
 cout << str << endl << endl;
 
-for (con=cgrap.getbegin();con;con=con->getdir(Cgrap::next)->get())
+for (con=cgrap.getbegin();con;con=con->get(Cgrap::next).get())
 {
 	cout << con->getobj() << endl;
 }
@@ -28,7 +28,7 @@ cgrap.action2(str2,grap2);
 
 cout << str2 << endl << endl;
 
-for (con=cgrap.getbegin();con;con=con->getdir(Cgrap::next)->get())
+for (con=cgrap.getbegin();con;con=con->get(Cgrap::next).get())
 {
 	cout << con->getobj() << endl;
 }

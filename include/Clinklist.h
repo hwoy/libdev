@@ -23,22 +23,44 @@ class Cdirect
 	
 };
 
-// **************  class Ccontainer   ************** //
 template <class T>
-class Ccontainer
+class CArray
 {
 	protected:
-	unsigned int ndirect;
-	T obj;
-	Cdirect<Ccontainer<T> > *direct;
+	unsigned int narray;
+	T *array;
 	
 	public:
-	Ccontainer(unsigned int ndirect=2):ndirect(ndirect){direct=new Cdirect<Ccontainer<T> >[ndirect];}
-	~Ccontainer(){delete[] direct;}
+	CArray():narray(0){array=static_cast<T *>(0);}
+	CArray(unsigned int narray){_alloc(narray);}
+	~CArray(){delete[] array;}
 	
+	T *alloc(unsigned int narray)
+	{
+		if(array) destroy();
+		return _alloc(narray);
+	}
+	
+	T *_alloc(unsigned int narray){this->narray=narray;return array=new T[narray];}
+	
+	void destroy(){delete[] array;narray=0;}
+	
+	T& get(unsigned int index){return (index+1<=narray)?array[index]:*static_cast<T *>(0);}
+	unsigned int getnarr() {return narray;}
+	
+};
+
+// **************  class Ccontainer   ************** //
+template <class T>
+class Ccontainer : public CArray<Cdirect<Ccontainer<T> > >
+{
+	protected:
+	T obj;
+
+	
+	public:
+	Ccontainer(unsigned int ndirect=2):CArray<Cdirect<Ccontainer<T> > >::CArray(ndirect){}
 	T& getobj() {return obj;}
-	Cdirect<Ccontainer<T> >* getdir(unsigned int index){return (index+1<=ndirect)?&direct[index]:static_cast<Cdirect<Ccontainer<T> > *>(0);}
-	unsigned int getndirect() {return ndirect;}
 	
 };
 
@@ -88,7 +110,7 @@ T *dir,*tmp;
 	for(dir=begin;dir;)
 	{
 		tmp=dir;
-		dir=dir->getdir(next)->get();
+		dir=dir->get(next).get();
 		delete tmp;
 	}
 	
@@ -114,7 +136,7 @@ unsigned int basic_data<T>::getCcontainerindex(T* obj)
 {
 	unsigned int i;
 	T *dir;
-	for(i=0,dir=begin;dir;i++,dir=dir->getdir(next)->get())
+	for(i=0,dir=begin;dir;i++,dir=dir->get(next).get())
 	{
 		if(dir==obj) return i;
 	}
@@ -128,7 +150,7 @@ T* basic_data<T>::getCcontainer(unsigned int index)
 {
 	unsigned int i;
 	T *dir;
-	for(i=0,dir=begin; dir && i<index ;i++,dir=dir->getdir(next)->get());
+	for(i=0,dir=begin; dir && i<index ;i++,dir=dir->get(next).get());
 	
 	return dir;
 }
@@ -138,7 +160,7 @@ unsigned int basic_data<T>::countCcontainer()
 {
 	unsigned int i;
 	T *dir;
-	for(i=0,dir=begin;dir;i++,dir=dir->getdir(next)->get());
+	for(i=0,dir=begin;dir;i++,dir=dir->get(next).get());
 	
 	return i;
 }
@@ -157,8 +179,8 @@ T* Cstack<T>::push(T *obj)
 	if(!obj)
 		throw(Cexception(__FILE__,"Cstack",__PRETTY_FUNCTION__,"NULL pointers"));	
 	
-	obj->getdir(basic_data<T>::next)->set(static_cast<T *>(0));
-	obj->getdir(basic_data<T>::prev)->set(static_cast<T *>(0));
+	obj->get(basic_data<T>::next).set(static_cast<T *>(0));
+	obj->get(basic_data<T>::prev).set(static_cast<T *>(0));
 	
 	
 	if(!basic_data<T>::begin && !basic_data<T>::end)
@@ -167,8 +189,8 @@ T* Cstack<T>::push(T *obj)
 	}
 	else
 	{
-		obj->getdir(basic_data<T>::prev)->set(basic_data<T>::end);
-		basic_data<T>::end->getdir(basic_data<T>::next)->set(obj);
+		obj->get(basic_data<T>::prev).set(basic_data<T>::end);
+		basic_data<T>::end->get(basic_data<T>::next).set(obj);
 	}
 	
 	basic_data<T>::end=obj;
@@ -185,9 +207,9 @@ T* Cstack<T>::pop()
 	if(basic_data<T>::begin && basic_data<T>::end)
 	{
 		dir=basic_data<T>::end;
-		basic_data<T>::end=basic_data<T>::end->getdir(Cstack<T>::prev)->get();
-		basic_data<T>::end->getdir(Cstack<T>::next)->set(static_cast<T *>(0));
-		dir->getdir(Cstack<T>::prev)->set(static_cast<T *>(0));
+		basic_data<T>::end=basic_data<T>::end->get(Cstack<T>::prev).get();
+		basic_data<T>::end->get(Cstack<T>::next).set(static_cast<T *>(0));
+		dir->get(Cstack<T>::prev).set(static_cast<T *>(0));
 	}
 	
 	return dir;
@@ -260,20 +282,20 @@ T* Clinklist<T>::split(T* obj)
 	
 	else if(Cstack<T>::begin==obj)
 	{
-		Cstack<T>::begin=obj->getdir(Cstack<T>::next)->get();
-		obj->getdir(Cstack<T>::next)->get()->getdir(Cstack<T>::prev)->set(  obj->getdir(Cstack<T>::prev)->get()  );
+		Cstack<T>::begin=obj->get(Cstack<T>::next).get();
+		obj->get(Cstack<T>::next).get()->get(Cstack<T>::prev).set(  obj->get(Cstack<T>::prev).get()  );
 	}
 	
 	else if(Cstack<T>::end==obj)
 	{
-		Cstack<T>::end=obj->getdir(Cstack<T>::prev)->get();
-		obj->getdir(Cstack<T>::prev)->get()->getdir(Cstack<T>::next)->set(  obj->getdir(Cstack<T>::next)->get()  );
+		Cstack<T>::end=obj->get(Cstack<T>::prev).get();
+		obj->get(Cstack<T>::prev).get()->get(Cstack<T>::next).set(  obj->get(Cstack<T>::next).get()  );
 	}
 	
 	else
 	{
-		obj->getdir(Cstack<T>::prev)->get()->getdir(Cstack<T>::next)->set(  obj->getdir(Cstack<T>::next)->get()  );
-		obj->getdir(Cstack<T>::next)->get()->getdir(Cstack<T>::prev)->set(  obj->getdir(Cstack<T>::prev)->get() );
+		obj->get(Cstack<T>::prev).get()->get(Cstack<T>::next).set(  obj->get(Cstack<T>::next).get()  );
+		obj->get(Cstack<T>::next).get()->get(Cstack<T>::prev).set(  obj->get(Cstack<T>::prev).get() );
 	}
 	
 	return obj;
@@ -304,16 +326,16 @@ T* Clinklist<T>::insert(T *obj,unsigned int index)
 	}
 	else if(dir==Cstack<T>::begin)
 	{
-		dir->getdir(Cstack<T>::prev)->set(obj);
-		obj->getdir(Cstack<T>::next)->set(Cstack<T>::begin);
+		dir->get(Cstack<T>::prev).set(obj);
+		obj->get(Cstack<T>::next).set(Cstack<T>::begin);
 		Cstack<T>::begin=obj;
 	}
 	else
 	{
-		obj->getdir(Cstack<T>::prev)->set(dir->getdir(Cstack<T>::prev)->get());
-		obj->getdir(Cstack<T>::next)->set(dir);
-		dir->getdir(Cstack<T>::prev)->get()->getdir(Cstack<T>::next)->set(obj);
-		dir->getdir(Cstack<T>::prev)->set(obj);
+		obj->get(Cstack<T>::prev).set(dir->get(Cstack<T>::prev).get());
+		obj->get(Cstack<T>::next).set(dir);
+		dir->get(Cstack<T>::prev).get()->get(Cstack<T>::next).set(obj);
+		dir->get(Cstack<T>::prev).set(obj);
 		
 	}
 	
@@ -343,8 +365,8 @@ T* Clinklist<T>::concat(T *obj)
 	}
 	else
 	{
-		dir->getdir(Cstack<T>::prev)->set(Cstack<T>::end);
-		Cstack<T>::end->getdir(Cstack<T>::next)->set(dir);
+		dir->get(Cstack<T>::prev).set(Cstack<T>::end);
+		Cstack<T>::end->get(Cstack<T>::next).set(dir);
 	}
 	
 	Cstack<T>::end=Cstack<T>::getCcontainer(Cstack<T>::countCcontainer()-1);

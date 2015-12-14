@@ -57,17 +57,17 @@ int main(void)
 
 static void showdata(Clinklist< Ccontainer<int> >& list)
 {
-	Ccontainer<int> *dir;
-	for(dir=list.getbegin();dir;dir=dir->getdir(Clinklist< Ccontainer<int> >::next)->get())
+	Ccontainer<int> *con;
+	for(con=list.getbegin();con;con=con->get(Clinklist< Ccontainer<int> >::next).get())
 	{
-		cout << dir->getobj() << endl;
+		cout << con->getobj() << endl;
 	}
 	
 	cout << "... Reverse ..." << endl;
 	
-	for(dir=list.getend();dir;dir=dir->getdir(Clinklist< Ccontainer<int> >::prev)->get())
+	for(con=list.getend();con;con=con->get(Clinklist< Ccontainer<int> >::prev).get())
 	{
-		cout << dir->getobj() << endl;
+		cout << con->getobj() << endl;
 	}		
 }
 
