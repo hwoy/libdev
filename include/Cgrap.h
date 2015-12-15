@@ -1,16 +1,7 @@
-
-
-#ifndef _CSTRING_H
 #include "CString.h"
-#endif
-
-#ifndef _CLINKLIST_H
 #include "Clinklist.h"
-#endif
-
-#ifndef _CONTAINER_H
 #include "container.h"
-#endif
+
 
 #ifndef _CGRAP_H
 #define _CGRAP_H

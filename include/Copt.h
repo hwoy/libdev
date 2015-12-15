@@ -1,7 +1,5 @@
-
-#ifndef _CSTRING_H
 #include "CString.h"
-#endif
+
 
 #ifndef _COPT_H
 #define _COPT_H

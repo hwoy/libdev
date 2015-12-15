@@ -1,15 +1,7 @@
-#ifndef _CARRAY_H
 #include "CArray.h"
-#endif
-
-#ifndef _CSTACK_H
 #include "Cstack.h"
-#endif
-
-
-#ifndef _CEXCEPTION_H
 #include "Cexception.h"
-#endif
+
 
 
 #ifndef _CLINKLIST_H

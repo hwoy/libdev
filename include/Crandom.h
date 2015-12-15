@@ -1,5 +1,3 @@
-
-
 #ifndef _CRANDOM_H
 #define _CRANDOM_H
 

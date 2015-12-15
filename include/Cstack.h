@@ -1,13 +1,6 @@
-
-#ifndef _CARRAY_H
 #include "CArray.h"
-#endif
-
-
-
-#ifndef _CEXCEPTION_H
 #include "Cexception.h"
-#endif
+
 
 #ifndef _CSTACK_H
 #define _CSTACK_H

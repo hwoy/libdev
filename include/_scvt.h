@@ -1,7 +1,6 @@
 
-#ifndef _CEXCEPTION_H
 #include "Cexception.h"
-#endif
+
 
 #ifndef __SCVT_H
 #define __SCVT_H

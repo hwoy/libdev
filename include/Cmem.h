@@ -1,7 +1,5 @@
-
-#ifndef _CEXCEPTION_H
 #include "Cexception.h"
-#endif
+
 
 #ifndef _CMEM_H
 #define _CMEM_H
