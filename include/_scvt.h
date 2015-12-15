@@ -1,15 +1,10 @@
 
-#ifndef __SCVT_H
-#define __SCVT_H
-#endif
-
-
 #ifndef _CEXCEPTION_H
 #include "Cexception.h"
 #endif
 
-
-
+#ifndef __SCVT_H
+#define __SCVT_H
 template <class T>
 T sLen (const char *ch);
 
@@ -213,4 +208,7 @@ bool scvt::isUintHex (U& cstr)
 {
 	return ::isUintHex (cstr.get());
 }
+
+
+#endif
 

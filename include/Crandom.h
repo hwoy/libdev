@@ -1,9 +1,9 @@
-#include <ctime>
+
 
 #ifndef _CRANDOM_H
 #define _CRANDOM_H
-#endif
 
+#include <ctime>
 #define _DEVNAME_ "/dev/urandom"
 
 typedef unsigned int (*rand_t)(void);
@@ -58,4 +58,7 @@ class Cdevrandom: public basic_random
 };
 
 
+
+
+#endif
 

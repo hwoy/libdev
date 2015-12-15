@@ -1,7 +1,5 @@
 #ifndef _CMSG_H
 #define _CMSG_H
-#endif
-
 #define NILL static_cast<const char **>(0)
 
 class Cmsg
@@ -48,6 +46,9 @@ class base_help
 	static const int RET=1;
 	
 };
+
+
+#endif
 
 
 

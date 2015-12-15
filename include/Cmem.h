@@ -1,11 +1,10 @@
-#ifndef _CMEM_H
-#define _CMEM_H
-#endif
 
 #ifndef _CEXCEPTION_H
 #include "Cexception.h"
 #endif
 
+#ifndef _CMEM_H
+#define _CMEM_H
 
 typedef char byte;
 typedef unsigned char ubyte;
@@ -185,3 +184,7 @@ T *Cmem<T>::memset(int c, unsigned int n)
 }
 
 /////////////////////////////////////////////////////////
+
+
+#endif
+

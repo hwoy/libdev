@@ -1,12 +1,10 @@
 
-#ifndef _CSTRING_H
-#define _CSTRING_H
-#endif
-
 #ifndef _CMEM_H
 #include "Cmem.h"
 #endif
 
+#ifndef _CSTRING_H
+#define _CSTRING_H
 class CString : public Cmem<byte>
 {
 	public:
@@ -40,3 +38,6 @@ class CString : public Cmem<byte>
 };
 
 std::ostream& operator <<(std::ostream& out,CString& str);
+
+#endif
+

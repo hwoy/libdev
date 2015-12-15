@@ -11,13 +11,13 @@
 
 
 
-Ccontainer<CString> * Cgrap::addstring(Ccontainer<CString> *dir,const char *str,unsigned int i,unsigned int j)
+grap_t * Cgrap::addstring(grap_t *con,const char *str,unsigned int i,unsigned int j)
 {
-	dir->getobj().balloc(i-j+1);
-	dir->getobj().memcpy(&str[j],i-j);
-	dir->getobj().get()[i-j]=0;
+	con->getobj().balloc(i-j+1);
+	con->getobj().memcpy(&str[j],i-j);
+	con->getobj().get()[i-j]=0;
 			
-	return add(dir);	
+	return add(con);	
 }
 
 void Cgrap::action(const char *str,const char *grap)
@@ -31,7 +31,7 @@ void Cgrap::action(const char *str,const char *grap)
 	{
 		if( !CString::strncmp(&str[i],grap,CString::strlen(grap)) )
 		{
-			addstring(new Ccontainer<CString>,str,i,j);
+			addstring(new grap_t,str,i,j);
 			
 			i+=CString::strlen(grap);
 			j=i;
@@ -43,7 +43,7 @@ void Cgrap::action(const char *str,const char *grap)
 	
 	if(i>j)
 	{	
-		addstring(new Ccontainer<CString>,str,i,j);
+		addstring(new grap_t,str,i,j);
 	}
 }
 
@@ -66,7 +66,7 @@ void Cgrap::action2(const char *str,char grap)
 	{
 		if( str[i]==grap )
 		{
-			addstring(new Ccontainer<CString>,str,i,j);
+			addstring(new grap_t,str,i,j);
 			
 			i=skipgrap(str,grap,i);
 			j=i;

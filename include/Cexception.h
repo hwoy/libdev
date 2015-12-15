@@ -1,6 +1,5 @@
 #ifndef _CEXCEPTION_H
 #define _CEXCEPTION_H
-#endif
 
 class Cexception
 {
@@ -32,4 +31,6 @@ int getret() const;
 
 static const int RET=1;
 };
+
+#endif
 

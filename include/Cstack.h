@@ -3,14 +3,14 @@
 #include "CArray.h"
 #endif
 
-#ifndef _CSTACK_H
-#define _CSTACK_H
-#endif
+
 
 #ifndef _CEXCEPTION_H
 #include "Cexception.h"
 #endif
 
+#ifndef _CSTACK_H
+#define _CSTACK_H
 // **************  class Cdirect   ************** //
 
 template <class T>
@@ -29,15 +29,15 @@ class Cdirect
 
 
 // **************  class Ccontainer   ************** //
-template <class T>
-class Ccontainer : public CArray<Cdirect<Ccontainer<T> > >
+template <class T,unsigned int N>
+class Ccontainer : public CArray<Cdirect<Ccontainer<T,N> > >
 {
 	protected:
 	T obj;
 
 	
 	public:
-	Ccontainer(unsigned int ndirect=2):CArray<Cdirect<Ccontainer<T> > >::CArray(ndirect){}
+	Ccontainer(unsigned int ndirect=N):CArray<Cdirect<Ccontainer<T,N> > >::CArray(ndirect){}
 	T& getobj() {return obj;}
 	
 };
@@ -46,6 +46,7 @@ class Ccontainer : public CArray<Cdirect<Ccontainer<T> > >
 template <class T>
 class basic_data 
 {
+	
 	protected:
 	T *begin;
 	T *end;
@@ -143,6 +144,7 @@ unsigned int basic_data<T>::countCcontainer()
 	return i;
 }
 // **************  class Cstack   ************** //
+
 template <class T>
 class Cstack : public basic_data<T>
 {
@@ -150,6 +152,7 @@ class Cstack : public basic_data<T>
 	T* push(T *obj);
 	T* pop();
 };
+ 
 
 template <class T>
 T* Cstack<T>::push(T *obj)
@@ -192,4 +195,7 @@ T* Cstack<T>::pop()
 	
 	return dir;
 }
+
+
+#endif
 

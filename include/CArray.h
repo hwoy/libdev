@@ -1,10 +1,6 @@
 
 #ifndef _CARRAY_H
 #define _CARRAY_H
-#endif
-
-
-
 template <class T>
 class CArray
 {
@@ -31,3 +27,6 @@ class CArray
 	unsigned int getnarr() {return narray;}
 	
 };
+
+#endif
+

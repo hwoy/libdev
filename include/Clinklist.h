@@ -6,15 +6,14 @@
 #include "Cstack.h"
 #endif
 
-#ifndef _CLINKLIST_H
-#define _CLINKLIST_H
-#endif
 
 #ifndef _CEXCEPTION_H
 #include "Cexception.h"
 #endif
 
 
+#ifndef _CLINKLIST_H
+#define _CLINKLIST_H
 
 
 template <class T>
@@ -175,5 +174,5 @@ T* Clinklist<T>::concat(T *obj)
 	
 }
 
-
+#endif
 

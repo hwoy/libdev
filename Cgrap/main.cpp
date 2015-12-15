@@ -11,7 +11,7 @@ static const char grap2=0x20;
 
 int main(void)
 {
-Ccontainer<CString> *con;
+grap_t *con;
 Cgrap cgrap;
 
 cgrap.action(str,grap);
