@@ -4,25 +4,25 @@
 #include <container.h>
 using namespace std;
 
-typedef container<int>::linklist linklist_t;
+typedef container<int>::linklist node_int;
 
-static void showdata(Clinklist< linklist_t >& list);
+static void showdata(Clinklist< node_int >& list);
 
 
 int main(void)
 {
 	int i;
 	
-	Clinklist< linklist_t > list;
-	Clinklist< linklist_t > listp;
+	Clinklist< node_int > list;
+	Clinklist< node_int > listp;
 
 	cout << "<<<< Start >>>>" << endl;
 	
 	for(i=1;i<=5;i++)
-		list.push(new linklist_t)->getobj()=i;
+		list.push(new node_int)->getobj()=i;
 	
 	for(i=1;i<=5;i++)
-		list.insert(new linklist_t,0)->getobj()=-i;
+		list.insert(new node_int,0)->getobj()=-i;
 	
 	showdata(list);
 
@@ -33,8 +33,8 @@ int main(void)
 	showdata(list);
 	
 	cout << "<<<< Insert >>>>" << endl;
-	list.insert(new linklist_t,4)->getobj()=1;
-	list.insert(new linklist_t,4)->getobj()=-1;
+	list.insert(new node_int,4)->getobj()=1;
+	list.insert(new node_int,4)->getobj()=-1;
 	
 	showdata(list);
 	
@@ -59,17 +59,17 @@ int main(void)
 	return 0;
 }
 
-static void showdata(Clinklist< linklist_t >& list)
+static void showdata(Clinklist< node_int >& list)
 {
-	linklist_t *con;
-	for(con=list.getbegin();con;con=con->get(Clinklist< linklist_t >::next).get())
+	node_int *con;
+	for(con=list.getbegin();con;con=con->get(Clinklist< node_int >::next).get())
 	{
 		cout << con->getobj() << endl;
 	}
 	
 	cout << "... Reverse ..." << endl;
 	
-	for(con=list.getend();con;con=con->get(Clinklist< linklist_t >::prev).get())
+	for(con=list.getend();con;con=con->get(Clinklist< node_int >::prev).get())
 	{
 		cout << con->getobj() << endl;
 	}		
