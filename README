@@ -36,7 +36,7 @@ Cmem<T> -----> CString:Cmem<char> -----> Copt
       basic_data<T=Ccontainer<T>> -----> Cstack<T=Ccontainer<T>> -----> Clinklist<T=Ccontainer<T>> -----> Cgrap:Clinklist< Ccontainer<CString> >
 						/
 					   /
-CArray<T,N> -----> Ccontainer<T,N>
+CArray<T> -----> Ccontainer<T,N>
 
 
 Cmsg -----> base_error
