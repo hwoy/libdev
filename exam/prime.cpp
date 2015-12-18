@@ -8,7 +8,7 @@
 
 
 template <class T>
-bool isPrime(T num)
+bool isPrime(T num) throw()
 {
 	T i;
 	

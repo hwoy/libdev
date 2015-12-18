@@ -54,7 +54,6 @@ unsigned int Cdevrandom::rand(const char *fname)
 	for(k=0,j=0;j<sizeof(i);j+=sizeof(char),k++)
 	fin.get(((char *)&i)[k]);
 
-	fin.close();
 	return i;
 }
 
