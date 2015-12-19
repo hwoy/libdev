@@ -18,6 +18,9 @@ class Cdirect
 	void set(T *point){this->point=point;}
 	T* get(){return point;}
 	
+	Cdirect<T>(const Cdirect<T> &)=delete;
+	Cdirect<T>& operator=(const Cdirect<T> &)=delete;
+	
 };
 
 
