@@ -20,10 +20,11 @@ class Cmem
 	public:
 	Cmem(T* ptr=(T*)0,unsigned int size=0);
 	Cmem(unsigned int block);
+	Cmem(const Cmem<T> &mem);
 	~Cmem();
 	
 	void set(T* ptr,unsigned int size);
-	void set(Cmem<T> &mem);
+	void set(const Cmem<T> &mem);
 	T* get() const;
 	Cmem<T>& getCmem() const;
 	
@@ -51,6 +52,12 @@ template <class T>
 Cmem<T>::Cmem(unsigned int block)
 {
 	balloc(block);
+}
+
+template <class T>
+Cmem<T>::Cmem(const Cmem<T> &mem)
+{
+	set(mem);
 }
 
 template <class T>
@@ -105,7 +112,7 @@ void Cmem<T>::set(T* ptr,unsigned int size)
 }
 
 template <class T>
-void Cmem<T>::set(Cmem<T> &mem)
+void Cmem<T>::set(const Cmem<T> &mem)
 {
 	set(mem.ptr,mem.size);
 }

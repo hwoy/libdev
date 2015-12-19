@@ -143,29 +143,29 @@ bool CString::operator!=(const char *str) const
 	return !operator==(str);
 }
 
-	CString& CString::operator=(CString& cstr)
+	CString& CString::operator=(const CString& cstr)
 	{
 		return operator=(cstr.get());
 	}
-	CString& CString::operator+=(CString& cstr)
+	CString& CString::operator+=(const CString& cstr)
 	{
 		return operator+=(cstr.get());
 	}
-	CString& CString::operator+(CString& cstr)
+	CString& CString::operator+(const CString& cstr)
 	{
 		return operator+(cstr.get());
 	}
 	
-	bool CString::operator==(CString& cstr) const
+	bool CString::operator==(const CString& cstr) const
 	{
 		return operator==(cstr.get());
 	}
-	bool CString::operator!=(CString& cstr) const
+	bool CString::operator!=(const CString& cstr) const
 	{
 		return operator!=(cstr.get());
 	}
 
-std::ostream& operator <<(std::ostream& out,CString& str)
+std::ostream& operator <<(std::ostream& out,const CString& str)
 {
 	out << str.get();
 	return out;

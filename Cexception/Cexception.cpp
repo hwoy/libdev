@@ -5,7 +5,6 @@
 
 
 
-
 Cexception::Cexception(const char* file,const char* classname,const char* method,const char* msg,int ret)
 {
 CString Total="";

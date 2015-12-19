@@ -7,6 +7,7 @@ class CString : public Cmem<byte>
 {
 	public:
 	CString(const char *str=(byte *)0);
+	CString(const CString &)=default;
 	
 	
 	
@@ -23,11 +24,11 @@ class CString : public Cmem<byte>
 	bool operator==(const char *str) const;
 	bool operator!=(const char *str) const;
 	
-	CString& operator=(CString& cstr);
-	CString& operator+=(CString& cstr);
-	CString& operator+(CString& cstr);
-	bool operator==(CString& cstr) const;
-	bool operator!=(CString& cstr) const;
+	CString& operator=(const CString& cstr);
+	CString& operator+=(const CString& cstr);
+	CString& operator+(const CString& cstr);
+	bool operator==(const CString& cstr) const;
+	bool operator!=(const CString& cstr) const;
 	
 
 	static unsigned int strlen(const char *str);
@@ -35,7 +36,7 @@ class CString : public Cmem<byte>
 	static int strncmp(const char *str1,const char *str2,unsigned int n);
 };
 
-std::ostream& operator <<(std::ostream& out,CString& str);
+std::ostream& operator <<(std::ostream& out,const CString& str);
 
 #endif
 

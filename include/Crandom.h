@@ -34,7 +34,7 @@ class Crandom: public basic_random
 	void set(int seed);
 	int get(void) const {return seed;}
 	
-	unsigned int rand();
+	unsigned int rand() override;
 };
 
 class Cdevrandom: public basic_random
@@ -49,7 +49,7 @@ class Cdevrandom: public basic_random
 	void set(const char *str) {fname=str;}
 	const char *get() const {return fname;}
 	
-	unsigned int rand();
+	unsigned int rand() override;
 	
 	static unsigned int rand(const char *fname);
 	static const unsigned int invalid=-1;

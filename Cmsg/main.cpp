@@ -3,20 +3,20 @@
 
 using namespace std;
 
-class Cerror : public base_error
+class Cerror final : public base_error
 {
 	public:
-	int show(const char *str,unsigned int index)
+	int show(const char *str,unsigned int index) override
 	{
 	cerr << "Error:" << index << ':' << str << ':' << getstr(index) << endl;
 	
 	return -(index+1);
 	}
 };
-class Chelp : public base_help
+class Chelp final : public base_help
 {
 	public:
-	int show(int ret=RET)
+	int show(int ret=RET) override
 {
 	unsigned int i;
 	for(i=0;i<getitem().getNelement();i++)

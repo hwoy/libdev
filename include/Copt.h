@@ -19,6 +19,9 @@ class Copt : public CString
 	static const int END=-2;
 	static const unsigned int START=1;
 	
+	Copt(const Copt &)=delete;
+	Copt& operator=(const Copt &)=delete;
+	
 	Copt(int argc,const char **argv=NULL,const char **param=NULL,unsigned start=START);
 	
 	void setup(int argc,const char **argv=NULL,const char **param=NULL,unsigned start=START);
@@ -42,8 +45,8 @@ class Copt : public CString
 	void setparam(const char **param);
 	unsigned int getparamcount() const;
 	
-	void init(int argc,const char **argv,const char **param,unsigned int start=1);
-	void init(unsigned int start=1);
+	void init(int argc,const char **argv,const char **param,unsigned int start=START);
+	void init(unsigned int start=START);
 	
 	
 	int action();

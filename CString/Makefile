@@ -1,5 +1,5 @@
 CC=g++
-CPPFLAGS=-g -std=c++98 -pedantic -Wall -Werror -Wextra -I../include
+CPPFLAGS=-g -std=c++11 -pedantic -Wall -Werror -Wextra -I../include
 bin=str.exe
 
 .PHONY: all clean

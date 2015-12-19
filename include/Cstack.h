@@ -33,6 +33,9 @@ class Ccontainer : public CArray<Cdirect<Ccontainer<T,N> > >
 	Ccontainer(unsigned int ndirect=N):CArray<Cdirect<Ccontainer<T,N> > >::CArray(ndirect){}
 	T& getobj() {return obj;}
 	
+	Ccontainer<T,N>(const Ccontainer<T,N> &)=delete;
+	Ccontainer<T,N>& operator=(const Ccontainer<T,N> &)=delete;
+	
 };
 
 // **************  class basic_data   ************** //

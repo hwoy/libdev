@@ -1,6 +1,6 @@
 CC=g++
 bin=msg.exe
-CPPFLAGS=-g -std=c++98 -pedantic -Wall -Werror -Wextra -I../include
+CPPFLAGS=-g -std=c++11 -pedantic -Wall -Werror -Wextra -I../include
 
 .PHONY: all clean
 
