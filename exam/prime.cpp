@@ -2,13 +2,14 @@
 
 #include <CString.h>
 #include <_scvt.h>
-#include <Cmsg.h>
+#include <Chelpmsg.h>
+#include <Cerrmsg.h>
 #include <Copt.h>
 
 
 
 template <class T>
-bool isPrime(T num) throw()
+bool isPrime(T num) noexcept
 {
 	T i;
 	
@@ -25,20 +26,16 @@ bool isPrime(T num) throw()
 
 using namespace std;
 
-class Cerror final: public base_error
+
+int Cerrormsg::show(const char *str,unsigned int index)
 {
-	public:
-	int show(const char *str,unsigned int index)  override
-	{
 	cerr << "Error:" << index << ':' << str << ':' << getstr(index) << endl;
 	
 	return -(index+1);
-	}
-};
-class Chelp final: public base_help
-{
-	public:
-	int show(int ret=RET)  override
+}
+
+
+int Chelpmsg::show(int ret)
 {
 	unsigned int i;
 	for(i=0;i<getitem().getNelement();i++)
@@ -46,7 +43,7 @@ class Chelp final: public base_help
 	
 	return ret;
 }
-};
+
 
 class Excep
 {
@@ -108,8 +105,8 @@ int main(int argc,const char *argv[])
 	prime_t j;
 	prime_t begin,end;
 	
-	Cerror err;
-	Chelp help;
+	Cerrormsg err;
+	Chelpmsg help;
 	
 	Copt opt(argc,argv,param);
 	err.setmsg(errmsg);
