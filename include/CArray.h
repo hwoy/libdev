@@ -5,26 +5,44 @@ template <class T>
 class CArray
 {
 	protected:
-	unsigned int narray;
-	T *array;
+	T *ptr;
+	unsigned int size;
 	
 	public:
-	CArray():narray(0){array=static_cast<T *>(0);}
-	CArray(unsigned int narray){_alloc(narray);}
-	~CArray(){delete[] array;}
+	CArray():size(0){ptr=static_cast<T *>(0);}
 	
-	T *alloc(unsigned int narray)
+	CArray(unsigned int size){_alloc(size);}
+	
+	~CArray(){delete[] ptr;}
+	
+	T *alloc(unsigned int size)
 	{
-		if(array) destroy();
-		return _alloc(narray);
+		if(ptr) destroy();
+		return _alloc(size);
 	}
 	
-	T *_alloc(unsigned int narray){this->narray=narray;return array=new T[narray];}
+	T *_alloc(unsigned int size)
+	{
+		this->size=size;
+		return ptr=new T[size];
+	}
 	
-	void destroy(){delete[] array;narray=0;}
+	void destroy()
+	{
+		if(ptr)
+		{
+		delete[] ptr;
+		size=0;
+		}
+	}
 	
-	T& get(unsigned int index){return (index+1<=narray)?array[index]:*static_cast<T *>(0);}
-	unsigned int getnarr() {return narray;}
+	T& get(unsigned int index){return (index+1<=size)?ptr[index]:*static_cast<T *>(0);}
+	
+	T* getptr(void){return ptr;}
+	
+	unsigned int getsize() {return size;}
+	
+	T& operator[] (unsigned int index){return get(index);}
 	
 };
 
