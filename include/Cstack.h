@@ -61,6 +61,7 @@ class basic_data
 	unsigned int countCcontainer();
 	unsigned int getCcontainerindex(T* obj);
 	T* getCcontainer(unsigned int index);
+	T* operator[] (unsigned int index);
 	
 	static const unsigned int invalid=-1;
 	static const unsigned int prev=0;
@@ -131,6 +132,12 @@ T* basic_data<T>::getCcontainer(unsigned int index)
 	for(i=0,dir=begin; dir && i<index ;i++,dir=dir->get(next).get());
 	
 	return dir;
+}
+
+template <class T>
+T* basic_data<T>::operator[] (unsigned int index)
+{
+	return getCcontainer(index);
 }
 
 template <class T>
