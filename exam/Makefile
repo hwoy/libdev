@@ -1,5 +1,7 @@
 CC=g++
 CPPFLAGS=-g -std=c++11 -pedantic -Wall -Werror -Wextra -I../include
+LIBDIR="../lib"
+LDFLAGS+=-L$(LIBDIR)
 
 bin=prime.exe
 
@@ -11,7 +13,7 @@ clean:
 	rm -f *.o $(bin)
 	
 $(bin):	prime.o
-	$(CC) -o $(bin) prime.o ../lib/CString.o ../lib/Copt.o  ../lib/Cexception.o ../lib/Cmsg.o
+	$(CC) $(LDFLAGS) -o $(bin) prime.o -ldev
 
 prime.o: prime.cpp
 
