@@ -2,7 +2,8 @@
 .PHONY: all clean clean-lib install exam
 
 install: all
-	find ./ -name *.o | grep -v main.o | grep -v ./lib | xargs -I {} cp -f {} lib 
+	find ./ -name *.o | grep -v main.o | grep -v ./lib | xargs -I {} cp -f {} lib && \
+	make -C lib
 
 all:
 	make -C Cgrap && \
@@ -22,10 +23,10 @@ clean:
 	make -C CString clean && \
 	make -C Cexception clean && \
 	make -C exam clean && \
-	rm -f lib/*.o
+	make -C lib clean
 
 clean-lib:
-	rm -f lib/*.o
+	make -C lib clean
 	
 exam: install
 	make -C exam
