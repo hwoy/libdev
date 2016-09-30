@@ -168,7 +168,7 @@ int Cmem<T>::memcmp(const void *s1, const void *s2, unsigned int n)
 	
 	for(i=0;i<n;i++)
 	{
-		j=static_cast<int>(static_cast<byte>((static_cast<ubyte *>(s1))[i]-(static_cast<ubyte *>(s2))[i]));
+		j=static_cast<int>(static_cast<byte>((static_cast<const ubyte *>(s1))[i]-(static_cast<const ubyte *>(s2))[i]));
 		if(j) return j;
 	}
 return 0;	
